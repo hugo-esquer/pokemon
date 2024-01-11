@@ -61,7 +61,11 @@ class combat:
         pass
 
     def ajout_pokedex(self):
-        pass
+        with open("pokedex.json") as mon_fichier:
+            data = json.load(mon_fichier)
+        data[self.adversaire.nom] = {"nom": self.adversaire.nom, "type": self.adversaire.type, "PV": self.adversaire.pv, "attaque": self.adversaire.attaque, "defense": self.adversaire.defense, "initiative": self.adversaire.initiative}
+        with open("pokedex.json") as mon_fichier:
+            json.dump(data, mon_fichier)
 
     def tour_joueur(self):
         self.touche_attaque(self.joueur, self.adversaire)
