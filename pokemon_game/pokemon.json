@@ -7,7 +7,7 @@
         "attaque": 20,
         "defense": 5,
         "initiative": 4,
-        "lvlEvolvl": 4,
+        "lvlEvolve": 4,
         "evolution": "herbizarre"
     },
     "herbizarre":{
@@ -17,7 +17,7 @@
         "attaque": 30,
         "defense": 8,
         "initiative": 5,
-        "lvlEvolvl": 8,
+        "lvlEvolve": 8,
         "evolution": "florizarre"
     },
     "florizarre":{
@@ -27,13 +27,10 @@
         "attaque": 45,
         "defense": 12,
         "initiative": 7,
-        "lvlEvolvl" : "None",
+        "lvlEvolve" : "None",
         "evolution" :"None"
 
-    }
-}
-
-{
+    },
     "salameche":{
         "nom": "Salameche",
         "type": "feu",
@@ -41,7 +38,7 @@
         "attaque": 52,
         "defense": 3,
         "initiative": 7,
-        "lvlEvolvl": 4,
+        "lvlEvolve": 4,
         "evolution": "reptincel"
     },
     "reptincel":{
@@ -51,7 +48,7 @@
         "attaque": 60,
         "defense": 11,
         "initiative": 5,
-        "lvlEvolvl": 6,
+        "lvlEvolve": 6,
         "evolution": "dracaufeu"
     },
     "dracaufeu":{
@@ -61,12 +58,9 @@
         "attaque": 47,
         "defense": 8,
         "initiative": 7,
-        "lvlEvolvl": "none",
+        "lvlEvolve": "none",
         "evolution": "none"
-    }
-}
-
-{
+    },
     "carapuce":{
         "nom": "Carapuce",
         "type": "eau",
@@ -74,7 +68,7 @@
         "attaque": 48,
         "defense": 65,
         "initiative": 4,
-        "lvlEvolvl": 4,
+        "lvlEvolve": 4,
         "evolution": "carabaffe"
     },
     "carabaffe":{
@@ -84,7 +78,7 @@
         "attaque": 54,
         "defense": 70,
         "initiative": 6,
-        "lvlEvolvl": 6,
+        "lvlEvolve": 6,
         "evolution": "tortank"
     },
     "tortank":{
@@ -94,12 +88,9 @@
         "attaque": 68,
         "defense": 75,
         "initiative": 7,
-        "lvlEvolvl": "none",
+        "lvlEvolve": "none",
         "evolution": "none"
-    }
-}
-
-{
+    },
     "roucool":{
         "nom": "Roucool",
         "type": "normal",
@@ -107,7 +98,7 @@
         "attaque": 45,
         "defense": 40,
         "initiative": 6,
-        "lvlEvolvl": 4,
+        "lvlEvolve": 4,
         "evolution": "roucoups"
     },
     "roucoups":{
@@ -117,7 +108,7 @@
         "attaque": 50,
         "defense": 60,
         "initiative": 7,
-        "lvlEvolvl": 6,
+        "lvlEvolve": 6,
         "evolution": "roucarnage"
     },
     "roucarnage":{
@@ -127,7 +118,7 @@
         "attaque": 57,
         "defense": 73,
         "initiative": 7,
-        "lvlEvolvl": "none",
+        "lvlEvolve": "none",
         "evolution": "none"
     }
 }
