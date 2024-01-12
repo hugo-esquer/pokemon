@@ -16,7 +16,7 @@ class combat:
         key_adversaire = random.choice(list(data.keys()))
         dico_adv = data[key_adversaire]
         self.adversaire = pokemon(dico_adv["nom"], dico_adv["pv"], dico_adv["initiative"],dico_adv["lvlEvolve"], dico_adv["evolution"], dico_adv["type"], dico_adv["attaque"], dico_adv["defense"])
-        # self.definir_lvl_adv()
+        self.definir_lvl_adv()
 
     def definir_lvl_adv(self):
         level = 0
@@ -84,33 +84,3 @@ class combat:
         self.touche_attaque(self.adversaire, self.joueur)
         if self.joueur.pv <= 0:
             self.affichage_gagnant(self.adversaire.nom)
-
-combat = combat("bulbizarre")
-combat.random_adv()
-cercle, fond = combat.definir_terrain()
-
-# Initialisation de Pygame
-pygame.init()
-
-# Définir la taille de la fenêtre
-largeur, hauteur = 800, 600
-taille_fenetre = (largeur, hauteur)
-
-# Créer la fenêtre
-fenetre = pygame.display.set_mode(taille_fenetre)
-pygame.display.set_caption("Ma Fenêtre Pygame")
-
-fond = pygame.transform.scale(fond, taille_fenetre)
-
-# Boucle principale
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-
-    fenetre.blit(fond, (0,0))
-    # Logique du jeu et dessin vont ici
-
-    # Rafraîchir l'écran
-    pygame.display.flip()
