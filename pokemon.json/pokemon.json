@@ -1,0 +1,134 @@
+{
+    
+    "bulbizarre":{
+        "nom": "Bulbizarre",
+        "type": "terre",
+        "pv": 45,
+        "attaque": 20,
+        "defense": 5,
+        "initiative": 4,
+        "lvlEvolvl": 4,
+        "evolution": "herbizarre"
+    },
+    "herbizarre":{
+        "nom": "Herbizarre",
+        "type": "terre",
+        "pv": 57,
+        "attaque": 30,
+        "defense": 8,
+        "initiative": 5,
+        "lvlEvolvl": 8,
+        "evolution": "florizarre"
+    },
+    "florizarre":{
+        "nom": "florizarre",
+        "type": "terre",
+        "pv": 70,
+        "attaque": 45,
+        "defense": 12,
+        "initiative": 7,
+        "lvlEvolvl" : "None",
+        "evolution" :"None"
+
+    }
+}
+
+{
+    "salameche":{
+        "nom": "Salameche",
+        "type": "feu",
+        "pv": 39,
+        "attaque": 52,
+        "defense": 3,
+        "initiative": 7,
+        "lvlEvolvl": 4,
+        "evolution": "reptincel"
+    },
+    "reptincel":{
+        "nom": "Reptincel",
+        "type": "feu",
+        "pv": 50,
+        "attaque": 60,
+        "defense": 11,
+        "initiative": 5,
+        "lvlEvolvl": 6,
+        "evolution": "dracaufeu"
+    },
+    "dracaufeu":{
+        "nom": "Dracaufeu",
+        "type": "feu",
+        "pv": 64,
+        "attaque": 47,
+        "defense": 8,
+        "initiative": 7,
+        "lvlEvolvl": "none",
+        "evolution": "none"
+    }
+}
+
+{
+    "carapuce":{
+        "nom": "Carapuce",
+        "type": "eau",
+        "pv": 44,
+        "attaque": 48,
+        "defense": 65,
+        "initiative": 4,
+        "lvlEvolvl": 4,
+        "evolution": "carabaffe"
+    },
+    "carabaffe":{
+        "nom": "Carabaffe",
+        "type": "eau",
+        "pv": 58,
+        "attaque": 54,
+        "defense": 70,
+        "initiative": 6,
+        "lvlEvolvl": 6,
+        "evolution": "tortank"
+    },
+    "tortank":{
+        "nom": "Tortank",
+        "type": "eau",
+        "pv": 62,
+        "attaque": 68,
+        "defense": 75,
+        "initiative": 7,
+        "lvlEvolvl": "none",
+        "evolution": "none"
+    }
+}
+
+{
+    "roucool":{
+        "nom": "Roucool",
+        "type": "normal",
+        "pv": 40,
+        "attaque": 45,
+        "defense": 40,
+        "initiative": 6,
+        "lvlEvolvl": 4,
+        "evolution": "roucoups"
+    },
+    "roucoups":{
+        "nom": "Roucoups",
+        "type": "normal",
+        "pv": 45,
+        "attaque": 50,
+        "defense": 60,
+        "initiative": 7,
+        "lvlEvolvl": 6,
+        "evolution": "roucarnage"
+    },
+    "roucarnage":{
+        "nom": "Roucarnage",
+        "type": "normal",
+        "pv": 54,
+        "attaque": 57,
+        "defense": 73,
+        "initiative": 7,
+        "lvlEvolvl": "none",
+        "evolution": "none"
+    }
+}
+
