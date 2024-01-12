@@ -1,5 +1,5 @@
 import random, json
-from type import type
+from models.type import type
 
 class pokemon(type):
     def __init__(self, nom, pv, initiative, lvlEvolve, evolution, type, attaque, defense):

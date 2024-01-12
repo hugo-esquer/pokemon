@@ -1,5 +1,9 @@
-import random, json, pygame
-from models import pokemon
+import random
+import json
+import pygame
+import sys
+from models.pokemon import pokemon
+
 
 class combat:
     def __init__(self, joueur):
@@ -7,12 +11,12 @@ class combat:
         self.adversaire = None
 
     def random_adv(self):
-        with open("pokemon.json") as mon_fichier:
+        with open("pokemon_game\\pokemon.json") as mon_fichier:
             data = json.load(mon_fichier)
         key_adversaire = random.choice(list(data.keys()))
         dico_adv = data[key_adversaire]
         self.adversaire = pokemon(dico_adv["nom"], dico_adv["pv"], dico_adv["initiative"],dico_adv["lvlEvolve"], dico_adv["evolution"], dico_adv["type"], dico_adv["attaque"], dico_adv["defense"])
-        self.definir_lvl_adv()
+        # self.definir_lvl_adv()
 
     def definir_lvl_adv(self):
         level = 0
@@ -27,17 +31,18 @@ class combat:
 
     def definir_terrain(self):
         if self.adversaire.type == "eau":
-            cercle = pygame.image.load(images/"cercle_eau.png")
-            fond = pygame.image.load(images/"mer.png")
+            cercle = pygame.image.load("pokemon_game\\images\\cercle_eau.png")
+            fond = pygame.image.load("pokemon_game\\images\\mer.png")
         elif self.adversaire.type == "terre":
-            cercle = pygame.image.load(images/"cerlce_terre.png")
-            fond = pygame.image.load(images/"foret.png")
+            cercle = pygame.image.load("pokemon_game\\images\\cercle_terre.png")
+            fond = pygame.image.load("pokemon_game\\images\\foret.png")
         elif self.adversaire.type == "feu":
-            cercle = pygame.image.load(images/"cercle_feu.png")
-            fond = pygame.image.load(images/"boue.png")
-        elif self.adversaire.type == "neutre":
-            cercle = pygame.image.load(images/"cercle_neutre.png")
-            fond = pygame.image.load(images/"plaine.png")
+            cercle = pygame.image.load("pokemon_game\\images\\cercle_feu.png")
+            fond = pygame.image.load("pokemon_game\\images\\boue.png")
+        elif self.adversaire.type == "normal":
+            cercle = pygame.image.load("pokemon_game\\images\\cercle_normal.png")
+            fond = pygame.image.load("pokemon_game\\images\\plaine.png")
+        return cercle, fond
     
     def definir_initiative(self):
         if random.randint(1, 20) + self.joueur.initiative > random.randint(1, 20) + self.adversaire.initiative:
@@ -79,3 +84,33 @@ class combat:
         self.touche_attaque(self.adversaire, self.joueur)
         if self.joueur.pv <= 0:
             self.affichage_gagnant(self.adversaire.nom)
+
+combat = combat("bulbizarre")
+combat.random_adv()
+cercle, fond = combat.definir_terrain()
+
+# Initialisation de Pygame
+pygame.init()
+
+# Définir la taille de la fenêtre
+largeur, hauteur = 800, 600
+taille_fenetre = (largeur, hauteur)
+
+# Créer la fenêtre
+fenetre = pygame.display.set_mode(taille_fenetre)
+pygame.display.set_caption("Ma Fenêtre Pygame")
+
+fond = pygame.transform.scale(fond, taille_fenetre)
+
+# Boucle principale
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    fenetre.blit(fond, (0,0))
+    # Logique du jeu et dessin vont ici
+
+    # Rafraîchir l'écran
+    pygame.display.flip()
