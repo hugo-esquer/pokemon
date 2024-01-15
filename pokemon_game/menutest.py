@@ -7,7 +7,7 @@ surfaceW, surfaceH = 800, 480
 
 class Menu:
     def __init__(self, application, *groupes):
-        self.couleurs = {'normal': (0, 200, 0), 'survol': (0, 200, 200)}
+        self.couleurs = {'normal': (255, 165, 0), 'survol': (173, 21, 230)}
         font = pygame.font.SysFont('Bombardier', 24)
         items = [('JOUER', application.jeu), ('QUITTER', application.quitter)]
         x, y = 400, 200
@@ -42,6 +42,7 @@ class MenuBouton(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x, y))
         self.texte = font.render(texte, True, (0, 0, 0))
         self.rectTexte = self.texte.get_rect(center=(largeur / 2, hauteur / 2))
+        self.couleur = couleur
         self.dessiner(couleur)
 
     def dessiner(self, couleur):
@@ -80,7 +81,8 @@ class Application:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("Pokemon")
-        self.fond = (150, ) * 3
+        image_fond = pygame.image.load("pokemon_game\\images\\background.accueil.jpg")
+        self.fond = pygame.transform.scale(image_fond, (surfaceW, surfaceH))
         self.fenetre = pygame.display.set_mode((surfaceW, surfaceH))
         self.groupeGlobal = pygame.sprite.Group()
         self.statut = True
@@ -109,7 +111,7 @@ class Application:
             if event.type == pygame.QUIT:
                 self.quitter()
                 return
-        self.fenetre.fill(self.fond)
+        self.fenetre.blit(self.fond, (0, 0))
         self.ecran.update(events)
         self.groupeGlobal.update()
         self.groupeGlobal.draw(self.fenetre)
