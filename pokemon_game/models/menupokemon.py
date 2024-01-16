@@ -2,7 +2,7 @@ import pygame
 import sys
 import json
 class menuPokemon:
-    def __init__(self, fond, fichier, largeur_fenetre, hauteur_fenetre, fenetre):
+    def __init__(self, fond, largeur_fenetre, hauteur_fenetre, fenetre):
         self.NOIR = (0, 0, 0)
         self.fenetre = fenetre
         self.image_fond = fond
@@ -21,7 +21,7 @@ class menuPokemon:
         self.liste_pokemon = []
         self.pokemon_selectionnee = 0
         self.liste_visible = 4
-        with open(fichier) as mon_fichier:
+        with open("pokemon_game\\pokemon.json") as mon_fichier:
             self.data = json.load(mon_fichier)
         for cle in self.data.keys():
             self.liste_pokemon.append(cle)
@@ -42,7 +42,7 @@ class menuPokemon:
                         pokemon_joueur = self.liste_pokemon[self.pokemon_selectionnee]
                         from combat import combat
                         combat.py
-            self.affichage()
+            self.affichage_game()
 
     def pokedex(self):
 
@@ -62,9 +62,9 @@ class menuPokemon:
                     elif event.key == pygame.K_ESCAPE:
                         import menu
                         menu.py
-            self.affichage()
+            self.affichage_pokedex()
 
-    def affichage(self):
+    def affichage_game(self):
         self.fenetre.blit(self.image_fond, (0,0))
         self.fenetre.blit(self.bouton_selection, (508, 60))
         for i in range(0, 3):
@@ -73,7 +73,32 @@ class menuPokemon:
             index_pkm = (self.pokemon_selectionnee + i) % len(self.liste_pokemon)
             texte_pkm = self.police_texte.render((self.liste_pokemon[index_pkm]).upper(), True, self.NOIR)
             self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
-        
+        self.affichage_stat()
+
+    def affichage_pokedex(self):
+        self.fenetre.blit(self.image_fond, (0,0))
+        self.fenetre.blit(self.bouton_selection, (508, 60))
+        liste_pokedex =[]
+        with open("pokemon_game\\pokedex.json") as mon_fichier:
+            data = json.load(mon_fichier)
+        for cle in data.keys():
+            liste_pokedex.append(cle)
+        for i in range(0, 3):
+            self.fenetre.blit(self.bouton_normal, (508, 156 + i*96))
+        for i in range(self.liste_visible):
+            index_pkm = (self.pokemon_selectionnee + i) % len(self.liste_pokemon)
+            if self.liste_pokemon[index_pkm] in liste_pokedex:
+                texte_pkm = self.police_texte.render((self.liste_pokemon[index_pkm]).upper(), True, self.NOIR)
+                self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
+            else:
+                texte_pkm = self.police_texte.render(("????"), True, self.NOIR)
+                self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
+        if self.liste_pokemon[self.pokemon_selectionnee] in liste_pokedex:
+            self.affichage_stat()
+        else:
+            self.affichage_masque()
+    
+    def affichage_stat(self):
         dico_pokemon = self.data[self.liste_pokemon[self.pokemon_selectionnee]]
         texte_nom = self.police_texte.render(dico_pokemon["nom"], True, self.NOIR)
         texte_pv = self.police_texte.render(str(dico_pokemon["pv"]), True, self.NOIR)
@@ -86,6 +111,22 @@ class menuPokemon:
             self.fenetre.blit(self.type_feu, (260, 152))
         if dico_pokemon["type"] == "terre":
             self.fenetre.blit(self.type_plante, (260, 152))
+
+        self.fenetre.blit(texte_nom, (268, 106))
+        self.fenetre.blit(texte_pv, (160, 304))
+        self.fenetre.blit(texte_atk, (160, 359))
+        self.fenetre.blit(texte_vit, (388, 304))
+        self.fenetre.blit(texte_def, (388, 359))
+        
+        pygame.display.flip()
+
+    def affichage_masque(self):
+        dico_pokemon = self.data[self.liste_pokemon[self.pokemon_selectionnee]]
+        texte_nom = self.police_texte.render("????", True, self.NOIR)
+        texte_pv = self.police_texte.render("??", True, self.NOIR)
+        texte_atk = self.police_texte.render("??", True, self.NOIR)
+        texte_vit = self.police_texte.render("??", True, self.NOIR)
+        texte_def = self.police_texte.render("??", True, self.NOIR)
 
         self.fenetre.blit(texte_nom, (268, 106))
         self.fenetre.blit(texte_pv, (160, 304))
