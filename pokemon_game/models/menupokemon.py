@@ -62,11 +62,11 @@ class menuPokemon:
                     elif event.key == pygame.K_ESCAPE:
                         import menu
                         menu.py
-            self.fenetre.blit(self.image_fond, (0,0))
-            self.fenetre.blit(self.bouton_selection, (508, 60))
             self.affichage_pokedex()
 
     def affichage_game(self):
+        self.fenetre.blit(self.image_fond, (0,0))
+        self.fenetre.blit(self.bouton_selection, (508, 60))
         for i in range(0, 3):
             self.fenetre.blit(self.bouton_normal, (508, 156 + i*96))
         for i in range(self.liste_visible):
@@ -76,6 +76,8 @@ class menuPokemon:
         self.affichage_stat()
 
     def affichage_pokedex(self):
+        self.fenetre.blit(self.image_fond, (0,0))
+        self.fenetre.blit(self.bouton_selection, (508, 60))
         liste_pokedex =[]
         with open("pokemon_game\\pokedex.json") as mon_fichier:
             data = json.load(mon_fichier)
