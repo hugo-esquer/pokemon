@@ -3,6 +3,7 @@ import json
 import pygame
 import sys
 from models.pokemon import pokemon
+from game import pokemon_joueur
 
 
 class combat:

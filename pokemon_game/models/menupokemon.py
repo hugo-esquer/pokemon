@@ -40,6 +40,8 @@ class menuPokemon:
                         self.pokemon_selectionnee = (self.pokemon_selectionnee - 1) % len(self.liste_pokemon)
                     elif event.key == pygame.K_RETURN:
                         pokemon_joueur = self.liste_pokemon[self.pokemon_selectionnee]
+                        from combat import combat
+                        combat.py
             self.affichage()
 
     def pokedex(self):
