@@ -13,5 +13,5 @@ NOIR = (0,0,0)
 pokemon_joueur = ""
 fond = pygame.image.load("pokemon_game\\images\\BG-selection.png")
 
-menu_pokemon = menuPokemon(fond, "pokemon_game\\pokemon.json", largeur_fenetre, hauteur_fenetre, fenetre)
+menu_pokemon = menuPokemon(fond, largeur_fenetre, hauteur_fenetre, fenetre)
 menu_pokemon.selection()
