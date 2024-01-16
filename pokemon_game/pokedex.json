@@ -1,0 +1,124 @@
+{
+    
+    "bulbizarre":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "herbizarre":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "florizarre":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "salameche":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "reptincel":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "dracaufeu":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "carapuce":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "carabaffe":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "tortank":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "roucool":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "roucoups":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    },
+    "roucarnage":{
+        "nom": "????",
+        "type": "????",
+        "pv": "??",
+        "attaque": "??",
+        "defense": "??",
+        "initiative": "??",
+        "lvlEvolve": null,
+        "evolution": null
+    }
+}
+
