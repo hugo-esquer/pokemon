@@ -3,19 +3,20 @@ import json
 import pygame
 import sys
 from models.pokemon import pokemon
-from game import pokemon_joueur
+# from game import pokemon_joueur
 
 
 class combat:
     def __init__(self, joueur):
         self.joueur = joueur
         self.adversaire = None
+        self.key_adversaire = None
 
     def random_adv(self):
         with open("pokemon_game\\pokemon.json") as mon_fichier:
             data = json.load(mon_fichier)
-        key_adversaire = random.choice(list(data.keys()))
-        dico_adv = data[key_adversaire]
+        self.key_adversaire = random.choice(list(data.keys()))
+        dico_adv = data[self.key_adversaire]
         self.adversaire = pokemon(dico_adv["nom"], dico_adv["pv"], dico_adv["initiative"],dico_adv["lvlEvolve"], dico_adv["evolution"], dico_adv["type"], dico_adv["attaque"], dico_adv["defense"])
         self.definir_lvl_adv()
 
@@ -70,11 +71,16 @@ class combat:
         print(f"{gagnant} à gagné le match")
 
     def ajout_pokedex(self):
-        with open("pokedex.json") as mon_fichier:
+        with open("pokemon_game\\pokedex.json") as mon_fichier:
             data = json.load(mon_fichier)
-        data[self.adversaire.nom] = {"nom": self.adversaire.nom, "type": self.adversaire.type, "PV": self.adversaire.pv, "attaque": self.adversaire.attaque, "defense": self.adversaire.defense, "initiative": self.adversaire.initiative}
-        with open("pokedex.json") as mon_fichier:
-            json.dump(data, mon_fichier)
+        if self.key_adversaire in data:
+            data[self.key_adversaire] = data[self.key_adversaire] + 1
+            with open("pokemon_game\\pokedex.json", "w") as mon_fichier:
+                json.dump(data, mon_fichier, indent=4)
+        else:
+            data[self.key_adversaire] = 1
+            with open("pokemon_game\pokedex.json", "w") as mon_fichier:
+                json.dump(data, mon_fichier, indent=4)
 
     def tour_joueur(self):
         self.touche_attaque(self.joueur, self.adversaire)
