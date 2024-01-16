@@ -57,7 +57,11 @@ class menuPokemon:
                     elif event.key == pygame.K_UP:
                         self.pokemon_selectionnee = (self.pokemon_selectionnee - 1) % len(self.liste_pokemon)
                     elif event.key == pygame.K_RETURN:
-                        pass
+                        import menu
+                        menu.py
+                    elif event.key == pygame.K_ESCAPE:
+                        import menu
+                        menu.py
             self.affichage()
 
     def affichage(self):
