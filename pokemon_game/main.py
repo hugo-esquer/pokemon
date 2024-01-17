@@ -131,7 +131,7 @@ class Application :
     def __init__(self) :
         pygame.init()
         pygame.display.set_caption("Pokemon")
-        image_fond = pygame.image.load("pokemon_game\\images\\background.accueil.jpg")
+        image_fond = pygame.image.load("pokemon_game/images/background.accueil.jpg")
         image_fond = pygame.transform.scale(image_fond, (surfaceW, surfaceH))
         self.fond = image_fond
  
