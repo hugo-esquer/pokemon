@@ -122,7 +122,10 @@ class menuPokemon:
             self.fenetre.blit(self.type_plante, (260, 152))
         if dico_pokemon["type"] == "normal":
             self.fenetre.blit(self.type_normal, (260, 152))
+        sprite_pokemon = pygame.image.load(dico_pokemon["face"])
+        sprite_pokemon = pygame.transform.scale(sprite_pokemon, (160, 160))
 
+        self.fenetre.blit(sprite_pokemon, (80, 112))
         self.fenetre.blit(texte_nom, (268, 106))
         self.fenetre.blit(texte_pv, (160, 304))
         self.fenetre.blit(texte_atk, (160, 359))
