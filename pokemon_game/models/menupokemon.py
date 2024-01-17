@@ -17,6 +17,10 @@ class menuPokemon:
         self.type_feu = pygame.transform.scale(self.type_feu, (196, 36))
         self.type_plante = pygame.image.load("pokemon_game/images/Type-plante.png")
         self.type_plante = pygame.transform.scale(self.type_plante, (196, 36))
+        self.type_normal = pygame.image.load("pokemon_game/images/Type-normal.png")
+        self.type_normal = pygame.transform.scale(self.type_normal, (196, 36))
+        self.sprite_inconnu = pygame.image.load("pokemon_game/images/Sprite-inconnu.png")
+        self.sprite_inconnu = pygame.transform.scale(self.sprite_inconnu, (128, 128))
         self.police_texte = pygame.font.Font("pokemon_game/typographie/BOMBARD_.ttf", 30)
         self.liste_pokemon = []
         self.pokemon_selectionnee = 0
@@ -74,6 +78,7 @@ class menuPokemon:
             texte_pkm = self.police_texte.render((self.liste_pokemon[index_pkm]).upper(), True, self.NOIR)
             self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
         self.affichage_stat()
+        pygame.display.flip()
 
     def affichage_pokedex(self):
         self.fenetre.blit(self.image_fond, (0,0))
@@ -95,8 +100,12 @@ class menuPokemon:
                 self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
         if self.liste_pokemon[self.pokemon_selectionnee] in liste_pokedex:
             self.affichage_stat()
+            nbr_pkm = self.police_texte.render(str(data[self.liste_pokemon[self.pokemon_selectionnee]]), True, self.NOIR)
+            self.fenetre.blit(nbr_pkm, (350, 425))
+            pygame.display.flip()
         else:
             self.affichage_masque()
+            pygame.display.flip()
     
     def affichage_stat(self):
         dico_pokemon = self.data[self.liste_pokemon[self.pokemon_selectionnee]]
@@ -111,27 +120,25 @@ class menuPokemon:
             self.fenetre.blit(self.type_feu, (260, 152))
         if dico_pokemon["type"] == "terre":
             self.fenetre.blit(self.type_plante, (260, 152))
+        if dico_pokemon["type"] == "normal":
+            self.fenetre.blit(self.type_normal, (260, 152))
 
         self.fenetre.blit(texte_nom, (268, 106))
         self.fenetre.blit(texte_pv, (160, 304))
         self.fenetre.blit(texte_atk, (160, 359))
         self.fenetre.blit(texte_vit, (388, 304))
         self.fenetre.blit(texte_def, (388, 359))
-        
-        pygame.display.flip()
 
     def affichage_masque(self):
-        dico_pokemon = self.data[self.liste_pokemon[self.pokemon_selectionnee]]
         texte_nom = self.police_texte.render("????", True, self.NOIR)
         texte_pv = self.police_texte.render("??", True, self.NOIR)
         texte_atk = self.police_texte.render("??", True, self.NOIR)
         texte_vit = self.police_texte.render("??", True, self.NOIR)
         texte_def = self.police_texte.render("??", True, self.NOIR)
 
+        self.fenetre.blit(self.sprite_inconnu, (95, 125))
         self.fenetre.blit(texte_nom, (268, 106))
         self.fenetre.blit(texte_pv, (160, 304))
         self.fenetre.blit(texte_atk, (160, 359))
         self.fenetre.blit(texte_vit, (388, 304))
         self.fenetre.blit(texte_def, (388, 359))
-        
-        pygame.display.flip()
