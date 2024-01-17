@@ -79,7 +79,7 @@ class menuPokemon:
         self.fenetre.blit(self.image_fond, (0,0))
         self.fenetre.blit(self.bouton_selection, (508, 60))
         liste_pokedex =[]
-        with open("pokemon_game\\pokedex.json") as mon_fichier:
+        with open("pokemon_game/pokedex.json") as mon_fichier:
             data = json.load(mon_fichier)
         for cle in data.keys():
             liste_pokedex.append(cle)
