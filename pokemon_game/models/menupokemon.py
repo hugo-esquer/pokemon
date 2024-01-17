@@ -1,6 +1,7 @@
 import pygame
 import sys
 import json
+
 class menuPokemon:
     def __init__(self, fond, largeur_fenetre, hauteur_fenetre, fenetre):
         self.NOIR = (0, 0, 0)
@@ -46,6 +47,9 @@ class menuPokemon:
                         pokemon_joueur = self.liste_pokemon[self.pokemon_selectionnee]
                         from combat import combat
                         combat.py
+                    elif event.key == pygame.K_ESCAPE:
+                        import menu
+                        menu.py
             self.affichage_game()
 
     def pokedex(self):
@@ -75,7 +79,10 @@ class menuPokemon:
             self.fenetre.blit(self.bouton_normal, (508, 156 + i*96))
         for i in range(self.liste_visible):
             index_pkm = (self.pokemon_selectionnee + i) % len(self.liste_pokemon)
+            dico_pokemon = self.data[self.liste_pokemon[index_pkm]]
             texte_pkm = self.police_texte.render((self.liste_pokemon[index_pkm]).upper(), True, self.NOIR)
+            icon = pygame.image.load(dico_pokemon["miniature"])
+            self.fenetre.blit(icon, (525, 80 + i * 96))
             self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
         self.affichage_stat()
         pygame.display.flip()
@@ -93,7 +100,11 @@ class menuPokemon:
         for i in range(self.liste_visible):
             index_pkm = (self.pokemon_selectionnee + i) % len(self.liste_pokemon)
             if self.liste_pokemon[index_pkm] in liste_pokedex:
+                dico_pokemon = self.data[self.liste_pokemon[index_pkm]]
                 texte_pkm = self.police_texte.render((self.liste_pokemon[index_pkm]).upper(), True, self.NOIR)
+                icon = pygame.image.load(dico_pokemon["miniature"])
+                self.fenetre.blit(icon, (525, 80 + i * 96))
+                self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
                 self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
             else:
                 texte_pkm = self.police_texte.render(("????"), True, self.NOIR)
