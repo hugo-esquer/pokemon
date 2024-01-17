@@ -11,7 +11,7 @@ pygame.display.set_caption("choisir un Pokémon")
 NOIR = (0,0,0)
 
 pokemon_joueur = ""
-fond = pygame.image.load("pokemon_game\\images\\BG-selection.png")
+fond = pygame.image.load("pokemon_game/images/BG-selection.png")
 
 menu_pokemon = menuPokemon(fond, largeur_fenetre, hauteur_fenetre, fenetre)
 menu_pokemon.selection()

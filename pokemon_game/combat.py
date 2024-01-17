@@ -13,7 +13,7 @@ class combat:
         self.key_adversaire = None
 
     def random_adv(self):
-        with open("pokemon_game\\pokemon.json") as mon_fichier:
+        with open("pokemon_game/pokemon.json") as mon_fichier:
             data = json.load(mon_fichier)
         self.key_adversaire = random.choice(list(data.keys()))
         dico_adv = data[self.key_adversaire]
@@ -33,17 +33,17 @@ class combat:
 
     def definir_terrain(self):
         if self.adversaire.type == "eau":
-            cercle = pygame.image.load("pokemon_game\\images\\cercle_eau.png")
-            fond = pygame.image.load("pokemon_game\\images\\mer.png")
+            cercle = pygame.image.load("pokemon_game/images/cercle_eau.png")
+            fond = pygame.image.load("pokemon_game/images/mer.png")
         elif self.adversaire.type == "terre":
-            cercle = pygame.image.load("pokemon_game\\images\\cercle_terre.png")
-            fond = pygame.image.load("pokemon_game\\images\\foret.png")
+            cercle = pygame.image.load("pokemon_game/images/cercle_terre.png")
+            fond = pygame.image.load("pokemon_game/images/foret.png")
         elif self.adversaire.type == "feu":
-            cercle = pygame.image.load("pokemon_game\\images\\cercle_feu.png")
-            fond = pygame.image.load("pokemon_game\\images\\boue.png")
+            cercle = pygame.image.load("pokemon_game/images/cercle_feu.png")
+            fond = pygame.image.load("pokemon_game/images/boue.png")
         elif self.adversaire.type == "normal":
-            cercle = pygame.image.load("pokemon_game\\images\\cercle_normal.png")
-            fond = pygame.image.load("pokemon_game\\images\\plaine.png")
+            cercle = pygame.image.load("pokemon_game/images/cercle_normal.png")
+            fond = pygame.image.load("pokemon_game/images/plaine.png")
         return cercle, fond
     
     def definir_initiative(self):
@@ -71,15 +71,15 @@ class combat:
         print(f"{gagnant} à gagné le match")
 
     def ajout_pokedex(self):
-        with open("pokemon_game\\pokedex.json") as mon_fichier:
+        with open("pokemon_game/pokedex.json") as mon_fichier:
             data = json.load(mon_fichier)
         if self.key_adversaire in data:
             data[self.key_adversaire] = data[self.key_adversaire] + 1
-            with open("pokemon_game\\pokedex.json", "w") as mon_fichier:
+            with open("pokemon_game/pokedex.json", "w") as mon_fichier:
                 json.dump(data, mon_fichier, indent=4)
         else:
             data[self.key_adversaire] = 1
-            with open("pokemon_game\pokedex.json", "w") as mon_fichier:
+            with open("pokemon_game/pokedex.json", "w") as mon_fichier:
                 json.dump(data, mon_fichier, indent=4)
 
     def tour_joueur(self):
