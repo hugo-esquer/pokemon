@@ -1,5 +1,5 @@
 import pygame
-from menupokemon import menuPokemon
+from models.menupokemon import menuPokemon
 
 pygame.init()
 

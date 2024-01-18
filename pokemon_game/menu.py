@@ -81,6 +81,8 @@ while True:
 
             if x_bouton < x < x_bouton + largeur_bouton and y_bouton2 < y < y_bouton2 + hauteur_bouton:
                 couleur_bouton2 = couleur_bouton_clic
+                import pokedex
+                pokedex.py
 
             if x_bouton < x < x_bouton + largeur_bouton and y_bouton3 < y < y_bouton3 + hauteur_bouton:
                 couleur_bouton3 = couleur_bouton_clic
