@@ -1,6 +1,5 @@
 import pygame
 import sys
-import subprocess
 
 # Initialisation de Pygame
 pygame.init()
@@ -77,10 +76,11 @@ while True:
             x, y = event.pos
             if x_bouton < x < x_bouton + largeur_bouton and y_bouton1 < y < y_bouton1 + hauteur_bouton:
                 couleur_bouton1 = couleur_bouton_clic
+                import game
+                game.py
 
             if x_bouton < x < x_bouton + largeur_bouton and y_bouton2 < y < y_bouton2 + hauteur_bouton:
                 couleur_bouton2 = couleur_bouton_clic
-
 
             if x_bouton < x < x_bouton + largeur_bouton and y_bouton3 < y < y_bouton3 + hauteur_bouton:
                 couleur_bouton3 = couleur_bouton_clic
