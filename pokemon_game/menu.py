@@ -1,98 +1,89 @@
 import pygame
 import sys
 
-# Initialisation de Pygame
-pygame.init()
-
-# Paramètres de la fenêtre
-largeur_fenetre = 800
-hauteur_fenetre = 480
-
-# Image de fond
-image_fond = pygame.image.load("pokemon_game\\images\\menu.pokemon.png")
-image_fond = pygame.transform.scale(image_fond, (largeur_fenetre, hauteur_fenetre))
-
-# Couleurs
-couleur_bouton_normal = (255, 165, 0)
-couleur_bouton_survol = (255, 200, 0)
-couleur_bouton_clic = (255, 100, 0)
-couleur_texte = (0, 0, 0)
-
-# Création de la fenêtre
-fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
-pygame.display.set_caption("Pokemon")
-
-# Fonction pour dessiner un bouton
-def dessiner_bouton(x, y, largeur, hauteur, texte, couleur):
-    pygame.draw.rect(fenetre, couleur, (x, y, largeur, hauteur))
-    
-    font = pygame.font.SysFont('Bombardier', 24)
-    texte_surface = font.render(texte, True, couleur_texte)
-    texte_rect = texte_surface.get_rect(center=(x + largeur // 2, y + hauteur // 2))
-    
-    fenetre.blit(texte_surface, texte_rect)
-
-# Obtenir les dimensions du bouton
-largeur_bouton = 300
-hauteur_bouton = 50
-
-# Calculer les positions des boutons pour les centrer
-x_bouton = (largeur_fenetre - largeur_bouton) // 2
-y_bouton1 = (hauteur_fenetre - 3 * hauteur_bouton) // 4
-y_bouton2 = y_bouton1 + hauteur_bouton + (hauteur_fenetre - 3 * hauteur_bouton) // 4
-y_bouton3 = y_bouton2 + hauteur_bouton + (hauteur_fenetre - 3 * hauteur_bouton) // 4
-
-# Définir la couleur initiale des boutons
-couleur_bouton1 = couleur_bouton_normal
-couleur_bouton2 = couleur_bouton_normal
-couleur_bouton3 = couleur_bouton_normal
-
 # Boucle principale
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+class menu_ppl:
+        
+    def __init__(self, fenetre):
+        self.fenetre = fenetre
+        # Image de fond
+        self.image_fond = pygame.image.load("pokemon_game/images/menu.pokemon.png")
+        self.image_fond = pygame.transform.scale(self.image_fond, (800, 480))
 
-        # Gérer les événements de la souris pour changer la couleur des boutons
-        if event.type == pygame.MOUSEMOTION:
-            x, y = event.pos
-            if x_bouton < x < x_bouton + largeur_bouton and y_bouton1 < y < y_bouton1 + hauteur_bouton:
-                couleur_bouton1 = couleur_bouton_survol
-            else:
-                couleur_bouton1 = couleur_bouton_normal
+        # Couleurs
+        self.couleur_bouton_normal = (255, 165, 0)
+        self.couleur_bouton_survol = (255, 200, 0)
+        self.couleur_bouton_clic = (255, 100, 0)
+        self.couleur_texte = (0, 0, 0)
 
-            if x_bouton < x < x_bouton + largeur_bouton and y_bouton2 < y < y_bouton2 + hauteur_bouton:
-                couleur_bouton2 = couleur_bouton_survol
-            else:
-                couleur_bouton2 = couleur_bouton_normal
+        # Obtenir les dimensions du bouton
+        self.largeur_bouton = 300
+        self.hauteur_bouton = 50
 
-            if x_bouton < x < x_bouton + largeur_bouton and y_bouton3 < y < y_bouton3 + hauteur_bouton:
-                couleur_bouton3 = couleur_bouton_survol
-            else:
-                couleur_bouton3 = couleur_bouton_normal
+        # Calculer les positions des boutons pour les centrer
+        self.x_bouton = (800 - self.largeur_bouton) // 2
+        self.y_bouton1 = (480 - 3 * self.hauteur_bouton) // 4
+        self.y_bouton2 = self.y_bouton1 + self.hauteur_bouton + (480 - 3 * self.hauteur_bouton) // 4
+        self.y_bouton3 = self.y_bouton2 + self.hauteur_bouton + (480 - 3 * self.hauteur_bouton) // 4
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            x, y = event.pos
-            if x_bouton < x < x_bouton + largeur_bouton and y_bouton1 < y < y_bouton1 + hauteur_bouton:
-                couleur_bouton1 = couleur_bouton_clic
-                import game
-                game.py
+        # Définir la couleur initiale des boutons
+        self.couleur_bouton1 = self.couleur_bouton_normal
+        self.couleur_bouton2 = self.couleur_bouton_normal
+        self.couleur_bouton3 = self.couleur_bouton_normal
+    
+    
+    # Fonction pour dessiner un bouton
+    def dessiner_bouton(self, x, y, largeur, hauteur, texte, couleur):
+        pygame.draw.rect(self.fenetre, couleur, (x, y, largeur, hauteur))
+        
+        font = pygame.font.SysFont('Bombardier', 24)
+        texte_surface = font.render(texte, True, self.couleur_texte)
+        texte_rect = texte_surface.get_rect(center=(x + largeur // 2, y + hauteur // 2))
+        
+        self.fenetre.blit(texte_surface, texte_rect)
 
-            if x_bouton < x < x_bouton + largeur_bouton and y_bouton2 < y < y_bouton2 + hauteur_bouton:
-                couleur_bouton2 = couleur_bouton_clic
-                import pokedex
-                pokedex.py
+    def gestion_evenement(self, evenements):
+        for event in evenements:
 
-            if x_bouton < x < x_bouton + largeur_bouton and y_bouton3 < y < y_bouton3 + hauteur_bouton:
-                couleur_bouton3 = couleur_bouton_clic
+            # Gérer les événements de la souris pour changer la couleur des boutons
+            if event.type == pygame.MOUSEMOTION:
+                x, y = event.pos
+                if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton1 < y < self.y_bouton1 + self.hauteur_bouton:
+                    self.couleur_bouton1 = self.couleur_bouton_survol
+                else:
+                    self.couleur_bouton1 = self.couleur_bouton_normal
 
+                if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton2 < y < self.y_bouton2 + self.hauteur_bouton:
+                    self.couleur_bouton2 = self.couleur_bouton_survol
+                else:
+                    self.couleur_bouton2 = self.couleur_bouton_normal
 
-    fenetre.blit(image_fond, (0, 0))
+                if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton3 < y < self.y_bouton3 + self.hauteur_bouton:
+                    self.couleur_bouton3 = self.couleur_bouton_survol
+                else:
+                    self.couleur_bouton3 = self.couleur_bouton_normal
 
-    # Dessiner les boutons
-    dessiner_bouton(x_bouton, y_bouton1, largeur_bouton, hauteur_bouton, "LANCER UNE PARTIE", couleur_bouton1)
-    dessiner_bouton(x_bouton, y_bouton2, largeur_bouton, hauteur_bouton, "ACCEDER AU POKEDEX", couleur_bouton2)
-    dessiner_bouton(x_bouton, y_bouton3, largeur_bouton, hauteur_bouton, "AJOUTER UN POKEMON", couleur_bouton3)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton1 < y < self.y_bouton1 + self.hauteur_bouton:
+                    self.couleur_bouton1 = self.couleur_bouton_clic
+                    return "game"
 
-    pygame.display.flip()
+                if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton2 < y < self.y_bouton2 + self.hauteur_bouton:
+                    self.couleur_bouton2 = self.couleur_bouton_clic
+                    return "pokedex_menu"
+
+                if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton3 < y < self.y_bouton3 + self.hauteur_bouton:
+                    self.couleur_bouton3 = self.couleur_bouton_clic
+
+    def afficher(self):
+
+        pygame.display.set_caption("Pokemon")
+        self.fenetre.blit(self.image_fond, (0, 0))
+
+        # Dessiner les boutons
+        self.dessiner_bouton(self.x_bouton, self.y_bouton1, self.largeur_bouton, self.hauteur_bouton, "LANCER UNE PARTIE", self.couleur_bouton1)
+        self.dessiner_bouton(self.x_bouton, self.y_bouton2, self.largeur_bouton, self.hauteur_bouton, "ACCEDER AU POKEDEX", self.couleur_bouton2)
+        self.dessiner_bouton(self.x_bouton, self.y_bouton3, self.largeur_bouton, self.hauteur_bouton, "AJOUTER UN POKEMON", self.couleur_bouton3)
+
+        pygame.display.flip()

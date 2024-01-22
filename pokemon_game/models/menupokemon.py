@@ -3,11 +3,8 @@ import sys
 import json
 
 class menuPokemon:
-    def __init__(self, fond, largeur_fenetre, hauteur_fenetre, fenetre):
+    def __init__(self):
         self.NOIR = (0, 0, 0)
-        self.fenetre = fenetre
-        self.image_fond = fond
-        self.image_fond = pygame.transform.scale(self.image_fond, (largeur_fenetre, hauteur_fenetre))
         self.bouton_normal = pygame.image.load("pokemon_game/images/Bouton-nonselection.png")
         self.bouton_normal = pygame.transform.scale(self.bouton_normal, (264, 72))
         self.bouton_selection = pygame.image.load("pokemon_game/images/Bouton-selection.png")
@@ -32,7 +29,6 @@ class menuPokemon:
             self.liste_pokemon.append(cle)
 
     def selection(self):
-
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -52,26 +48,6 @@ class menuPokemon:
                         menu.py
             self.affichage_game()
 
-    def pokedex(self):
-
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_DOWN:
-                        self.pokemon_selectionnee = (self.pokemon_selectionnee + 1) % len(self.liste_pokemon)
-                    elif event.key == pygame.K_UP:
-                        self.pokemon_selectionnee = (self.pokemon_selectionnee - 1) % len(self.liste_pokemon)
-                    elif event.key == pygame.K_RETURN:
-                        import menu
-                        menu.py
-                    elif event.key == pygame.K_ESCAPE:
-                        import menu
-                        menu.py
-            self.affichage_pokedex()
-
     def affichage_game(self):
         self.fenetre.blit(self.image_fond, (0,0))
         self.fenetre.blit(self.bouton_selection, (508, 60))
@@ -85,38 +61,7 @@ class menuPokemon:
             self.fenetre.blit(icon, (525, 80 + i * 96))
             self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
         self.affichage_stat()
-        pygame.display.flip()
 
-    def affichage_pokedex(self):
-        self.fenetre.blit(self.image_fond, (0,0))
-        self.fenetre.blit(self.bouton_selection, (508, 60))
-        liste_pokedex =[]
-        with open("pokemon_game/pokedex.json") as mon_fichier:
-            data = json.load(mon_fichier)
-        for cle in data.keys():
-            liste_pokedex.append(cle)
-        for i in range(0, 3):
-            self.fenetre.blit(self.bouton_normal, (508, 156 + i*96))
-        for i in range(self.liste_visible):
-            index_pkm = (self.pokemon_selectionnee + i) % len(self.liste_pokemon)
-            if self.liste_pokemon[index_pkm] in liste_pokedex:
-                dico_pokemon = self.data[self.liste_pokemon[index_pkm]]
-                texte_pkm = self.police_texte.render((self.liste_pokemon[index_pkm]).upper(), True, self.NOIR)
-                icon = pygame.image.load(dico_pokemon["miniature"])
-                self.fenetre.blit(icon, (525, 80 + i * 96))
-                self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
-                self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
-            else:
-                texte_pkm = self.police_texte.render(("????"), True, self.NOIR)
-                self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
-        if self.liste_pokemon[self.pokemon_selectionnee] in liste_pokedex:
-            self.affichage_stat()
-            nbr_pkm = self.police_texte.render(str(data[self.liste_pokemon[self.pokemon_selectionnee]]), True, self.NOIR)
-            self.fenetre.blit(nbr_pkm, (350, 425))
-            pygame.display.flip()
-        else:
-            self.affichage_masque()
-            pygame.display.flip()
     
     def affichage_stat(self):
         dico_pokemon = self.data[self.liste_pokemon[self.pokemon_selectionnee]]
