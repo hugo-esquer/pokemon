@@ -48,7 +48,6 @@ class menuPokemon:
                         from combat import combat
                         combat.py
                     elif event.key == pygame.K_ESCAPE:
-                        import menu
                         menu.py
             self.affichage_game()
 
