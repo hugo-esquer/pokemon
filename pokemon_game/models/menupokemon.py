@@ -28,41 +28,6 @@ class menuPokemon:
         for cle in self.data.keys():
             self.liste_pokemon.append(cle)
 
-    def selection(self):
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_DOWN:
-                        self.pokemon_selectionnee = (self.pokemon_selectionnee + 1) % len(self.liste_pokemon)
-                    elif event.key == pygame.K_UP:
-                        self.pokemon_selectionnee = (self.pokemon_selectionnee - 1) % len(self.liste_pokemon)
-                    elif event.key == pygame.K_RETURN:
-                        pokemon_joueur = self.liste_pokemon[self.pokemon_selectionnee]
-                        from combat import combat
-                        combat.py
-                    elif event.key == pygame.K_ESCAPE:
-                        import menu
-                        menu.py
-            self.affichage_game()
-
-    def affichage_game(self):
-        self.fenetre.blit(self.image_fond, (0,0))
-        self.fenetre.blit(self.bouton_selection, (508, 60))
-        for i in range(0, 3):
-            self.fenetre.blit(self.bouton_normal, (508, 156 + i*96))
-        for i in range(self.liste_visible):
-            index_pkm = (self.pokemon_selectionnee + i) % len(self.liste_pokemon)
-            dico_pokemon = self.data[self.liste_pokemon[index_pkm]]
-            texte_pkm = self.police_texte.render((self.liste_pokemon[index_pkm]).upper(), True, self.NOIR)
-            icon = pygame.image.load(dico_pokemon["miniature"])
-            self.fenetre.blit(icon, (525, 80 + i * 96))
-            self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
-        self.affichage_stat()
-
-    
     def affichage_stat(self):
         dico_pokemon = self.data[self.liste_pokemon[self.pokemon_selectionnee]]
         texte_nom = self.police_texte.render(dico_pokemon["nom"], True, self.NOIR)

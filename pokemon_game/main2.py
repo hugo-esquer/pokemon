@@ -2,16 +2,17 @@ import pygame
 
 from menu import menu_ppl
 from pokedex import pokedex
+from game import game
 
 pygame.init()
 # Paramètres de la fenêtre
 largeur_fenetre = 800
 hauteur_fenetre = 480
 fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
-# Initialisation de Pygame et création de la fenêtre
 
 menu = menu_ppl(fenetre)
 pokedex_menu = pokedex(fenetre)
+game_menu = game(fenetre)
 
 ecran_actuel = menu  # Commencez à l'écran d'accueil
 
@@ -28,8 +29,12 @@ while en_cours:
     ecran_actuel.afficher()
 
     # Logique pour changer d'écran
+    if prochain_ecran == "menu":
+        ecran_actuel = menu
     if prochain_ecran == "pokedex_menu":
         ecran_actuel = pokedex_menu
+    if prochain_ecran == "game_menu":
+        ecran_actuel = game_menu
     # Ajoutez d'autres conditions pour les autres écrans si nécessaire...
 
     pygame.display.flip()
