@@ -1,5 +1,4 @@
 import pygame
-import sys
 
 # Boucle principale
 class menu_ppl:

@@ -1,8 +1,8 @@
 import pygame
-
 from menu import menu_ppl
 from pokedex import pokedex
 from game import game
+from combat import combat
 
 pygame.init()
 # Paramètres de la fenêtre
@@ -35,6 +35,9 @@ while en_cours:
         ecran_actuel = pokedex_menu
     if prochain_ecran == "game_menu":
         ecran_actuel = game_menu
-    # Ajoutez d'autres conditions pour les autres écrans si nécessaire...
+    if prochain_ecran == "combat":
+        joueur = game_menu.obtenir_selection()
+        ecrant_combat = combat(fenetre, joueur)
+        ecran_actuel = ecrant_combat
 
     pygame.display.flip()
