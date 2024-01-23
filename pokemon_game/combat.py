@@ -28,7 +28,6 @@ class combat():
         self.sprite_joueur = pygame.transform.scale(self.sprite_joueur, (160, 160))
 
         self.texte_nom_joueur = self.police_texte.render(self.joueur.nom.upper(), True, self.NOIR)
-        self.niveau_joueur = self.police_texte.render(str(self.joueur.lvl), True, self.NOIR)
         self.choix_adversaire()
 
     def choix_adversaire(self):
@@ -67,17 +66,24 @@ class combat():
     
     def definir_initiative(self):
         if random.randint(1, 20) + self.joueur.initiative > random.randint(1, 20) + self.adversaire.initiative:
-            self.tour_joueur()
-            self.tour_adversaire()
+            if self.joueur.pv > 0 and self.adversaire.pv > 0:
+                self.tour_joueur()
+            if self.joueur.pv > 0 and self.adversaire.pv > 0:
+                self.tour_adversaire()
         else:
-            self.tour_adversaire()
-            self.tour_joueur()
+            if self.joueur.pv > 0 and self.adversaire.pv > 0:
+                self.tour_adversaire()
+            if self.joueur.pv > 0 and self.adversaire.pv > 0:
+                self.tour_joueur()
     
     def attaque(self, attaquant, defenseur):
         defenseur.pv -= attaquant.attaque * attaquant.comparaison(defenseur)
         text = f"{defenseur.nom} perd {attaquant.attaque * attaquant.comparaison(defenseur)} pv"
-        text = self.police_texte.render(text)
+        text = self.police_texte.render(text, True, self.NOIR)
         self.fenetre.blit(text, (44, 402))
+        pygame.display.flip()
+        pygame.time.delay(2000)
+        self.flip_fenetre()
 
     def touche_attaque(self, attaquant, defenseur):
         if random.randint(1, 100) < 80-defenseur.defense:
@@ -87,13 +93,19 @@ class combat():
 
     def attaque_rate(self, attaquant):
         text = f"{attaquant.nom} rate son attaque"
-        text = self.police_texte.render(text)
+        text = self.police_texte.render(text, True, self.NOIR)
         self.fenetre.blit(text, (44, 402))
+        pygame.display.flip()
+        pygame.time.delay(2000)
+        self.flip_fenetre()
 
     def affichage_gagnant(self, gagnant):
         text = f"{gagnant} à gagné le match"
-        text = self.police_texte.render(text)
+        text = self.police_texte.render(text, True, self.NOIR)
         self.fenetre.blit(text, (44, 402))
+        pygame.display.flip()
+        pygame.time.delay(2000)
+        self.flip_fenetre()
 
 
     def ajout_pokedex(self):
@@ -112,17 +124,16 @@ class combat():
         self.touche_attaque(self.joueur, self.adversaire)
         if self.adversaire.pv <= 0:
             self.affichage_gagnant(self.joueur.nom)
+            self.joueur.gain_lvl()
     
     def tour_adversaire(self):
         self.touche_attaque(self.adversaire, self.joueur)
         if self.joueur.pv <= 0:
             self.affichage_gagnant(self.adversaire.nom)
+            self.perdu = "menu"
 
-    def gestion_evenement(self, evenements):
-        pass
-
-    def afficher(self):
-        pygame.display.set_caption("Combat Pokemon")
+    def flip_fenetre(self):
+        self.niveau_joueur = self.police_texte.render(str(self.joueur.lvl), True, self.NOIR)
         self.fenetre.blit(self.background, (0,0))
         self.fenetre.blit(self.sprite_joueur, (128,228))
         self.fenetre.blit(self.sprite_adversaire, (572,88))
@@ -132,3 +143,12 @@ class combat():
         self.fenetre.blit(self.niveau_joueur, (686, 304))
         self.fenetre.blit(self.texte_nom_adversaire, (70, 86))
         self.fenetre.blit(self.niveau_adversaire, (262, 88))
+
+    def gestion_evenement(self, evenements):
+        pass
+
+    def afficher(self):
+        pygame.display.set_caption("Combat Pokemon")
+        self.flip_fenetre()
+        while self.joueur.pv > 0 and self.adversaire.pv > 0:
+            self.definir_initiative()
