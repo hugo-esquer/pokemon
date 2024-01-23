@@ -2,7 +2,6 @@ import pygame
 import json
 import sys
 
-
 class pokedex():
     def __init__(self, fenetre):
         self.fenetre = fenetre

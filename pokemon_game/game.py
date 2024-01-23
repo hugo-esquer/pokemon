@@ -46,10 +46,6 @@ class game():
                         self.pokemon_selectionnee = (self.pokemon_selectionnee - 1) % len(self.liste_pokemon)
                     elif event.key == pygame.K_RETURN:
                         self.pokemon_joueur = self.liste_pokemon[self.pokemon_selectionnee]
-                        with open("pokemon_game/pokemon.json") as mon_fichier:
-                            data = json.load(mon_fichier)
-                        dico_joueur = data[self.pokemon_joueur]
-                        self.pokemon_joueur = pokemon(dico_joueur["nom"], dico_joueur["pv"], dico_joueur["initiative"],dico_joueur["lvlEvolve"], dico_joueur["evolution"], dico_joueur["type"], dico_joueur["attaque"], dico_joueur["defense"])
                         return "combat"
                     elif event.key == pygame.K_ESCAPE:
                         return "menu"

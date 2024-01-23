@@ -7,16 +7,40 @@ from models.pokemon import pokemon
 class combat():
     def __init__(self, fenetre, joueur):
         self.fenetre = fenetre
-        self.joueur = joueur
+        self.pokemon_joueur = joueur
         self.adversaire = None
         self.key_adversaire = None
         self.background = None
+        self.NOIR = (0, 0, 0)
+        self.barre_ennemi = pygame.image.load("pokemon_game/images/Barre-ennemi.png")
+        self.barre_ennemi = pygame.transform.scale(self.barre_ennemi, (282, 78))
+        self.barre_joueur = pygame.image.load("pokemon_game/images/Barre-joueur.png")
+        self.barre_joueur = pygame.transform.scale(self.barre_joueur, (282, 78))
+        self.police_texte = pygame.font.Font("pokemon_game/typographie/BOMBARD_.ttf", 20)
+        self.texte_nom_adversaire = None
+        self.niveau_adversaire = None
 
+        with open("pokemon_game/pokemon.json") as mon_fichier:
+            data = json.load(mon_fichier)
+        dico_joueur = data[self.pokemon_joueur]
+        self.joueur = pokemon(dico_joueur["nom"], dico_joueur["pv"], dico_joueur["initiative"],dico_joueur["lvlEvolve"], dico_joueur["evolution"], dico_joueur["type"], dico_joueur["attaque"], dico_joueur["defense"])
+        self.sprite_joueur = pygame.image.load(dico_joueur["dos"])
+        self.sprite_joueur = pygame.transform.scale(self.sprite_joueur, (160, 160))
+
+        self.texte_nom_joueur = self.police_texte.render(self.joueur.nom.upper(), True, self.NOIR)
+        self.niveau_joueur = self.police_texte.render(str(self.joueur.lvl), True, self.NOIR)
+        self.choix_adversaire()
+
+    def choix_adversaire(self):
         with open("pokemon_game/pokemon.json") as mon_fichier:
             data = json.load(mon_fichier)
         self.key_adversaire = random.choice(list(data.keys()))
         dico_adv = data[self.key_adversaire]
         self.adversaire = pokemon(dico_adv["nom"], dico_adv["pv"], dico_adv["initiative"],dico_adv["lvlEvolve"], dico_adv["evolution"], dico_adv["type"], dico_adv["attaque"], dico_adv["defense"])
+        self.sprite_adversaire = pygame.image.load(dico_adv["face"])
+        self.sprite_adversaire = pygame.transform.scale(self.sprite_adversaire, (160, 160))
+        self.texte_nom_adversaire = self.police_texte.render(self.adversaire.nom.upper(), True, self.NOIR)
+        self.niveau_adversaire = self.police_texte.render(str(self.adversaire.lvl), True, self.NOIR)
 
         level = 0
         if self.joueur.lvl == 1 or self.joueur.lvl == 2:
@@ -100,3 +124,11 @@ class combat():
     def afficher(self):
         pygame.display.set_caption("Combat Pokemon")
         self.fenetre.blit(self.background, (0,0))
+        self.fenetre.blit(self.sprite_joueur, (128,228))
+        self.fenetre.blit(self.sprite_adversaire, (572,88))
+        self.fenetre.blit(self.barre_joueur, (470,292))
+        self.fenetre.blit(self.barre_ennemi, (48,72))
+        self.fenetre.blit(self.texte_nom_joueur, (492, 304))
+        self.fenetre.blit(self.niveau_joueur, (686, 304))
+        self.fenetre.blit(self.texte_nom_adversaire, (70, 86))
+        self.fenetre.blit(self.niveau_adversaire, (262, 88))
