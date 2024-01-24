@@ -1,7 +1,6 @@
 import pygame
 import sys
 import json
-from models.pokemon import pokemon
 
 class game():
     def __init__(self, fenetre):
