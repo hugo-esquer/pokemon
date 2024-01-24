@@ -16,9 +16,17 @@ class combat():
         self.barre_ennemi = pygame.transform.scale(self.barre_ennemi, (282, 78))
         self.barre_joueur = pygame.image.load("pokemon_game/images/Barre-joueur.png")
         self.barre_joueur = pygame.transform.scale(self.barre_joueur, (282, 78))
+        self.ouiNon = pygame.image.load("pokemon_game/images/Barre-message-ouinon.png")
+        self.ouiNon = pygame.transform.scale(self.ouiNon, (124, 84))
+        self.fleche = pygame.image.load("pokemon_game/images/Fleche.png")
+        self.fleche = pygame.transform.scale(self.fleche, (14, 20))
         self.police_texte = pygame.font.Font("pokemon_game/typographie/BOMBARD_.ttf", 20)
         self.texte_nom_adversaire = None
         self.niveau_adversaire = None
+        self.gagnant = None
+        self.options = ["Oui", "Non"]
+        self.option_selectionnee = 0
+
 
         with open("pokemon_game/pokemon.json") as mon_fichier:
             data = json.load(mon_fichier)
@@ -28,9 +36,11 @@ class combat():
         self.sprite_joueur = pygame.transform.scale(self.sprite_joueur, (160, 160))
 
         self.texte_nom_joueur = self.police_texte.render(self.joueur.nom.upper(), True, self.NOIR)
+        self.pv_max = self.joueur.pv
         self.choix_adversaire()
 
     def choix_adversaire(self):
+        self.pv_max = self.joueur.pv
         with open("pokemon_game/pokemon.json") as mon_fichier:
             data = json.load(mon_fichier)
         self.key_adversaire = random.choice(list(data.keys()))
@@ -39,7 +49,6 @@ class combat():
         self.sprite_adversaire = pygame.image.load(dico_adv["face"])
         self.sprite_adversaire = pygame.transform.scale(self.sprite_adversaire, (160, 160))
         self.texte_nom_adversaire = self.police_texte.render(self.adversaire.nom.upper(), True, self.NOIR)
-        self.niveau_adversaire = self.police_texte.render(str(self.adversaire.lvl), True, self.NOIR)
 
         level = 0
         if self.joueur.lvl == 1 or self.joueur.lvl == 2:
@@ -51,6 +60,7 @@ class combat():
             self.adversaire.gain_lvl()
             i += 1
 
+        self.niveau_adversaire = self.police_texte.render(str(self.adversaire.lvl), True, self.NOIR)
         if self.adversaire.type == "eau":
             self.background = pygame.image.load("pokemon_game/images/BG-Eau.png")
             self.background = pygame.transform.scale(self.background, (800, 480))
@@ -100,6 +110,7 @@ class combat():
         self.flip_fenetre()
 
     def affichage_gagnant(self, gagnant):
+        self.gagnant = gagnant
         text = f"{gagnant} à gagné le match"
         text = self.police_texte.render(text, True, self.NOIR)
         self.fenetre.blit(text, (44, 402))
@@ -123,13 +134,26 @@ class combat():
     def tour_joueur(self):
         self.touche_attaque(self.joueur, self.adversaire)
         if self.adversaire.pv <= 0:
-            self.affichage_gagnant(self.joueur.nom)
+            self.affichage_gagnant("Joueur")
+            self.joueur.pv = self.pv_max
             self.joueur.gain_lvl()
+            if self.joueur.lvl == self.joueur.lvlEvolve:
+                self.pokemon_joueur = self.joueur.evolution
+                with open("pokemon_game/pokemon.json") as mon_fichier:
+                    data = json.load(mon_fichier)
+                dico_joueur = data[self.pokemon_joueur]
+                self.sprite_joueur = pygame.image.load(dico_joueur["dos"])
+                self.sprite_joueur = pygame.transform.scale(self.sprite_joueur, (160, 160))
+                
+                self.joueur.evol()
+                self.texte_nom_joueur = self.police_texte.render(self.joueur.nom.upper(), True, self.NOIR)
+
+
     
     def tour_adversaire(self):
         self.touche_attaque(self.adversaire, self.joueur)
         if self.joueur.pv <= 0:
-            self.affichage_gagnant(self.adversaire.nom)
+            self.affichage_gagnant("L'adversaire")
             self.perdu = "menu"
 
     def flip_fenetre(self):
@@ -145,10 +169,47 @@ class combat():
         self.fenetre.blit(self.niveau_adversaire, (262, 88))
 
     def gestion_evenement(self, evenements):
-        pass
+        for event in evenements:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_DOWN:
+                    self.option_selectionnee = (self.option_selectionnee + 1) % len(self.options)
+                elif event.key == pygame.K_UP:
+                    self.option_selectionnee = (self.option_selectionnee - 1) % len(self.options)
+                elif event.key == pygame.K_RETURN:
+                    if self.gagnant == "Joueur":
+                        if self.options[self.option_selectionnee] == "Oui":
+                            self.gagnant = None
+                            self.choix_adversaire()
+                        elif self.options[self.option_selectionnee] == "Non":
+                            return "menu"
+                    else:
+                        if self.options[self.option_selectionnee] == "Oui":
+                            self.gagnant = None
+                            self.joueur.pv = self.pv_max
+                            self.choix_adversaire()
+                        elif self.options[self.option_selectionnee] == "Non":
+                            return "menu"
 
     def afficher(self):
         pygame.display.set_caption("Combat Pokemon")
         self.flip_fenetre()
         while self.joueur.pv > 0 and self.adversaire.pv > 0:
             self.definir_initiative()
+        if self.gagnant == "Joueur":
+            text = "vous avez gagné! Commencer un nouveau match ?"
+            text = self.police_texte.render(text, True, self.NOIR)
+            self.fenetre.blit(text, (44, 402))
+            self.fenetre.blit(self.ouiNon, (675, 392))
+            for i, option in enumerate(self.options):
+                texte_option = self.police_texte.render(option, True, self.NOIR)
+                self.fenetre.blit(texte_option, (720, 405 + i * 30))
+            self.fenetre.blit(self.fleche, (695, 405 + self.option_selectionnee * 30))
+        else:
+            text = "vous avez perdu. Retenter un match ?"
+            text = self.police_texte.render(text, True, self.NOIR)
+            self.fenetre.blit(text, (44, 402))
+            self.fenetre.blit(self.ouiNon, (675, 392))
+            for i, option in enumerate(self.options):
+                texte_option = self.police_texte.render(option, True, self.NOIR)
+                self.fenetre.blit(texte_option, (710, 405 + i * 30))
+            self.fenetre.blit(self.fleche, (695, 405 + self.option_selectionnee * 30))
