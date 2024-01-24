@@ -32,7 +32,7 @@ class PokemonApp:
 
         # Création de la fenêtre
         self.fenetre = pygame.display.set_mode((self.largeur_fenetre, self.hauteur_fenetre))
-        pygame.display.set_caption("Pokemon")
+        pygame.display.set_caption("Ajouter un pokemon")
 
         # Liste de boutons
         self.buttons = [
