@@ -139,6 +139,7 @@ class combat():
     def tour_joueur(self):
         self.touche_attaque(self.joueur, self.adversaire)
         if self.adversaire.pv <= 0:
+            self.ajout_pokedex()
             self.affichage_gagnant("Joueur")
             self.joueur.pv = self.joueur_pv_max
             self.joueur.gain_lvl()
@@ -213,7 +214,6 @@ class combat():
         while self.joueur.pv > 0 and self.adversaire.pv > 0:
             self.definir_initiative()
         if self.gagnant == "Joueur":
-            self.ajout_pokedex()
             text = "vous avez gagné! Commencer un nouveau match ?"
             text = self.police_texte.render(text, True, self.NOIR)
             self.fenetre.blit(text, (44, 402))
