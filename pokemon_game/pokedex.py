@@ -2,7 +2,6 @@ import pygame
 import json
 import sys
 
-
 class pokedex():
     def __init__(self, fenetre):
         self.fenetre = fenetre
@@ -47,7 +46,6 @@ class pokedex():
                     elif event.key == pygame.K_ESCAPE:
                         return "menu"
 
-
     def afficher(self):
         pygame.display.set_caption("Pokédex")
         self.fenetre.blit(self.image_fond, (0,0))
@@ -77,7 +75,6 @@ class pokedex():
             self.fenetre.blit(nbr_pkm, (350, 425))
         else:
             self.affichage_masque()
-
     
     def affichage_stat(self):
         dico_pokemon = self.data[self.liste_pokemon[self.pokemon_selectionnee]]

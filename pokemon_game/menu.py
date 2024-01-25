@@ -1,5 +1,12 @@
 import pygame
-import sys
+pygame.mixer.init()
+
+# Chargement et initialisation audio
+mouse_over_button_sound = pygame.mixer.Sound("pokemon_game/audio/bruitages\mouse_over_button.mp3")
+mouse_over_button_sound.set_volume(0.025)
+play_sound1 = False
+play_sound2 = False
+play_sound3 = False
 
 # Boucle principale
 class menu_ppl:
@@ -42,27 +49,38 @@ class menu_ppl:
         
         self.fenetre.blit(texte_surface, texte_rect)
 
-    def gestion_evenement(self, evenements):
-        for event in evenements:
 
+    def gestion_evenement(self, evenements):
+       
+        for event in evenements:
+            global play_sound1, play_sound2, play_sound3
             # Gérer les événements de la souris pour changer la couleur des boutons
             if event.type == pygame.MOUSEMOTION:
                 x, y = event.pos
                 if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton1 < y < self.y_bouton1 + self.hauteur_bouton:
                     self.couleur_bouton1 = self.couleur_bouton_survol
+                    if not play_sound1:
+                        mouse_over_button_sound.play()
+                        play_sound1 = True
                 else:
                     self.couleur_bouton1 = self.couleur_bouton_normal
-
+                    play_sound1 = False
                 if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton2 < y < self.y_bouton2 + self.hauteur_bouton:
                     self.couleur_bouton2 = self.couleur_bouton_survol
+                    if not play_sound2:
+                        mouse_over_button_sound.play()
+                        play_sound2 = True                
                 else:
                     self.couleur_bouton2 = self.couleur_bouton_normal
-
+                    play_sound2 = False
                 if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton3 < y < self.y_bouton3 + self.hauteur_bouton:
                     self.couleur_bouton3 = self.couleur_bouton_survol
+                    if not play_sound3:
+                        mouse_over_button_sound.play()
+                        play_sound3 = True                
                 else:
                     self.couleur_bouton3 = self.couleur_bouton_normal
-
+                    play_sound3 = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
                 if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton1 < y < self.y_bouton1 + self.hauteur_bouton:

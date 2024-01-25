@@ -2,7 +2,6 @@ import pygame
 import sys
 import json
 
-
 class game():
     def __init__(self, fenetre):
         self.fenetre = fenetre
@@ -27,6 +26,7 @@ class game():
         self.liste_pokemon = []
         self.pokemon_selectionnee = 0
         self.liste_visible = 4
+        self.pokemon_joueur = None
         with open("pokemon_game/pokemon.json") as mon_fichier:
             self.data = json.load(mon_fichier)
         for cle in self.data.keys():
@@ -44,11 +44,13 @@ class game():
                     elif event.key == pygame.K_UP:
                         self.pokemon_selectionnee = (self.pokemon_selectionnee - 1) % len(self.liste_pokemon)
                     elif event.key == pygame.K_RETURN:
-                        pokemon_joueur = self.liste_pokemon[self.pokemon_selectionnee]
-                        from combat import combat
-                        combat.py
+                        self.pokemon_joueur = self.liste_pokemon[self.pokemon_selectionnee]
+                        return "combat"
                     elif event.key == pygame.K_ESCAPE:
                         return "menu"
+
+    def obtenir_selection(self):
+        return self.pokemon_joueur
 
     def afficher(self):
         pygame.display.set_caption("choisir un Pokémon")
