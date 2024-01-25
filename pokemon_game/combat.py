@@ -29,8 +29,6 @@ class combat():
 
         #barres de vie
         self.VERT = (0, 255, 0)
-        self.longueur_vie_joueur = 150
-        self.longueur_vie_adversaire = 150
         self.adversaire_pv_max = None
 
 
@@ -181,6 +179,12 @@ class combat():
 
         pygame.draw.rect(self.fenetre, self.VERT, (560, 331, self.longueur_vie_joueur, 8))
 
+        # barre de vie de l'adversaire
+        pourcentage_adversaire = (self.adversaire.pv/self.adversaire_pv_max) if self.adversaire.pv > 0 else 0
+        self.longueur_vie_adversaire = int(160 * pourcentage_adversaire)
+
+        pygame.draw.rect(self.fenetre, self.VERT, (130, 116, self.longueur_vie_adversaire, 8))
+
     def gestion_evenement(self, evenements):
         for event in evenements:
             if event.type == pygame.KEYDOWN:
@@ -209,6 +213,7 @@ class combat():
         while self.joueur.pv > 0 and self.adversaire.pv > 0:
             self.definir_initiative()
         if self.gagnant == "Joueur":
+            self.ajout_pokedex()
             text = "vous avez gagné! Commencer un nouveau match ?"
             text = self.police_texte.render(text, True, self.NOIR)
             self.fenetre.blit(text, (44, 402))
