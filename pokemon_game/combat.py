@@ -27,6 +27,12 @@ class combat():
         self.options = ["Oui", "Non"]
         self.option_selectionnee = 0
 
+        #barres de vie
+        self.VERT = (0, 255, 0)
+        self.longueur_vie_joueur = 150
+        self.longueur_vie_adversaire = 150
+        self.adversaire_pv_max = None
+
 
         with open("pokemon_game/pokemon.json") as mon_fichier:
             data = json.load(mon_fichier)
@@ -36,11 +42,11 @@ class combat():
         self.sprite_joueur = pygame.transform.scale(self.sprite_joueur, (160, 160))
 
         self.texte_nom_joueur = self.police_texte.render(self.joueur.nom.upper(), True, self.NOIR)
-        self.pv_max = self.joueur.pv
+        self.joueur_pv_max = self.joueur.pv
         self.choix_adversaire()
 
     def choix_adversaire(self):
-        self.pv_max = self.joueur.pv
+        self.joueur_pv_max = self.joueur.pv
         with open("pokemon_game/pokemon.json") as mon_fichier:
             data = json.load(mon_fichier)
         self.key_adversaire = random.choice(list(data.keys()))
@@ -59,6 +65,7 @@ class combat():
         while i < level:
             self.adversaire.gain_lvl()
             i += 1
+        self.adversaire_pv_max = self.adversaire.pv
 
         self.niveau_adversaire = self.police_texte.render(str(self.adversaire.lvl), True, self.NOIR)
         if self.adversaire.type == "eau":
@@ -135,7 +142,7 @@ class combat():
         self.touche_attaque(self.joueur, self.adversaire)
         if self.adversaire.pv <= 0:
             self.affichage_gagnant("Joueur")
-            self.joueur.pv = self.pv_max
+            self.joueur.pv = self.joueur_pv_max
             self.joueur.gain_lvl()
             if self.joueur.lvl == self.joueur.lvlEvolve:
                 self.pokemon_joueur = self.joueur.evolution
@@ -168,6 +175,12 @@ class combat():
         self.fenetre.blit(self.texte_nom_adversaire, (70, 86))
         self.fenetre.blit(self.niveau_adversaire, (262, 88))
 
+        # barre de vie du joueur
+        pourcentage_joueur = (self.joueur.pv/self.joueur_pv_max) if self.joueur.pv > 0 else 0
+        self.longueur_vie_joueur = int(160 * pourcentage_joueur)
+
+        pygame.draw.rect(self.fenetre, self.VERT, (560, 331, self.longueur_vie_joueur, 8))
+
     def gestion_evenement(self, evenements):
         for event in evenements:
             if event.type == pygame.KEYDOWN:
@@ -185,7 +198,7 @@ class combat():
                     else:
                         if self.options[self.option_selectionnee] == "Oui":
                             self.gagnant = None
-                            self.joueur.pv = self.pv_max
+                            self.joueur.pv = self.joueur_pv_max
                             self.choix_adversaire()
                         elif self.options[self.option_selectionnee] == "Non":
                             return "menu"
