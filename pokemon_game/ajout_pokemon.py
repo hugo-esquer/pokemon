@@ -4,13 +4,15 @@ import sys
 
 class Button:
 
-    def __init__(self, x, y, width, height, image_path, action):
+    def __init__(self, x, y, width, height, image_path, action, button_type=None, button_force=None):
         self.rect = pygame.Rect(x, y, width, height)
         self.image_original = pygame.image.load(image_path)
         self.image_original = pygame.transform.scale(self.image_original, (width, height))
         self.image = self.image_original.copy()
         self.action = action
         self.clicked = False
+        self.type = button_type  # Ajout de la variable de type
+        self.force = button_force  # Ajout de la variable de force
 
     def draw(self, surface):
         surface.blit(self.image, self.rect.topleft)
@@ -62,16 +64,16 @@ class PokemonApp:
         pygame.display.set_caption("Ajouter un pokemon")
 
         self.type_buttons = [
-            Button(50, 220, 140, 40, "pokemon_game/images/Type-eau.png", self.button1_action),
-            Button(225, 220, 140, 40, "pokemon_game/images/Type-feu.png", self.button2_action),
-            Button(410, 220, 140, 40, "pokemon_game/images/Type-normal.png", self.button5_action),
-            Button(600, 220, 140, 40, "pokemon_game/images/Type-plante.png", self.button7_action),
+            Button(50, 220, 140, 40, "pokemon_game/images/Type-eau.png", self.button1_action, button_type="Eau"),
+            Button(225, 220, 140, 40, "pokemon_game/images/Type-feu.png", self.button2_action, button_type="Feu"),
+            Button(410, 220, 140, 40, "pokemon_game/images/Type-normal.png", self.button5_action, button_type="Normal"),
+            Button(600, 220, 140, 40, "pokemon_game/images/Type-plante.png", self.button7_action, button_type="Plante"),
         ]
 
         self.other_buttons = [
-            Button(100, 330, 140, 40, "pokemon_game/images/ajout.pokemon.FORT.png", self.button3_action),
-            Button(500, 330, 140, 40, "pokemon_game/images/ajout.pokemon.FAIBLE.png", self.button4_action),
-            Button(300, 330, 140, 40, "pokemon_game/images/ajout.pokemon.MOYEN.png", self.button6_action),
+            Button(100, 330, 140, 40, "pokemon_game/images/ajout.pokemon.FORT.png", self.button3_action, button_force="fort"),
+            Button(500, 330, 140, 40, "pokemon_game/images/ajout.pokemon.FAIBLE.png", self.button4_action, button_force="faible"),
+            Button(300, 330, 140, 40, "pokemon_game/images/ajout.pokemon.MOYEN.png", self.button6_action, button_force="moyen"),
         ]
 
         self.ajouter_buttons = [
@@ -81,25 +83,25 @@ class PokemonApp:
         self.text_input = TextInput(190, 125, 410, 40)
 
     def button1_action(self):
-        print("Action du Bouton 1")
+        print(f"Action du Bouton 1 - Type : {self.type_buttons[0].type}")
 
     def button2_action(self):
-        print("Action du Bouton 2")
+        print(f"Action du Bouton 2 - Type : {self.type_buttons[1].type}")
 
     def button3_action(self):
-        print("Action du Bouton 3")
+        print(f"Action du Bouton 3 - Force : {self.other_buttons[0].force}")
 
     def button4_action(self):
-        print("Action du Bouton 4")
+        print(f"Action du Bouton 4 - Force : {self.other_buttons[1].force}")
 
     def button5_action(self):
-        print("Action du Bouton 5")
+        print(f"Action du Bouton 5 - Type : {self.type_buttons[2].type}")
 
     def button6_action(self):
-        print("Action du Bouton 6")
+        print(f"Action du Bouton 6 - Force : {self.other_buttons[2].force}")
 
     def button7_action(self):
-        print("Action du Bouton 7")
+        print(f"Action du Bouton 7 - Type : {self.type_buttons[3].type}")
 
     def button8_action(self):
         print("Action du bouton 8")
@@ -135,6 +137,7 @@ if __name__ == "__main__":
     app = PokemonApp(800, 480, "pokemon_game/images/background.ajout.png")
     pygame.event.set_grab(False)
     app.run()
+
 
 
 # une variable type 
