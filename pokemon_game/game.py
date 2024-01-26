@@ -5,9 +5,13 @@ import json
 class game():
     def __init__(self, fenetre):
         self.fenetre = fenetre
+
+        # chargement du background
         self.image_fond = pygame.image.load("pokemon_game/images/BG-selection.png")
         self.image_fond = pygame.transform.scale(self.image_fond, (800, 480))
         self.NOIR = (0, 0, 0)
+
+        # chargement des assets
         self.bouton_normal = pygame.image.load("pokemon_game/images/Bouton-nonselection.png")
         self.bouton_normal = pygame.transform.scale(self.bouton_normal, (264, 72))
         self.bouton_selection = pygame.image.load("pokemon_game/images/Bouton-selection.png")
@@ -23,6 +27,8 @@ class game():
         self.sprite_inconnu = pygame.image.load("pokemon_game/images/Sprite-inconnu.png")
         self.sprite_inconnu = pygame.transform.scale(self.sprite_inconnu, (128, 128))
         self.police_texte = pygame.font.Font("pokemon_game/typographie/BOMBARD_.ttf", 30)
+
+        # definition de la liste des pokemon disponible
         self.liste_pokemon = []
         self.pokemon_selectionnee = 0
         self.liste_visible = 4
@@ -33,6 +39,7 @@ class game():
             self.liste_pokemon.append(cle)
 
 
+    # boucle d'évènements
     def gestion_evenement(self, evenements):
             for event in evenements:
                 if event.type == pygame.QUIT:
@@ -48,14 +55,17 @@ class game():
                         return "combat"
                     elif event.key == pygame.K_ESCAPE:
                         return "menu"
-
+    # getteur de la variable pokemon_joueur
     def obtenir_selection(self):
         return self.pokemon_joueur
 
+    # affichage de la fenêtre 
     def afficher(self):
         pygame.display.set_caption("choisir un Pokémon")
         self.fenetre.blit(self.image_fond, (0,0))
         self.fenetre.blit(self.bouton_selection, (508, 60))
+
+        # affichage des bouttons, des nom et des miniatures
         for i in range(0, 3):
             self.fenetre.blit(self.bouton_normal, (508, 156 + i*96))
         for i in range(self.liste_visible):
@@ -66,6 +76,7 @@ class game():
             self.fenetre.blit(icon, (525, 80 + i * 96))
             self.fenetre.blit(texte_pkm, (576, 80 + i * 96))
 
+        # affichage des stat dans la partie gauche de l'écran
         dico_pokemon = self.data[self.liste_pokemon[self.pokemon_selectionnee]]
         texte_nom = self.police_texte.render(dico_pokemon["nom"], True, self.NOIR)
         texte_pv = self.police_texte.render(str(dico_pokemon["pv"]), True, self.NOIR)
