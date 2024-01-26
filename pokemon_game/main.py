@@ -57,9 +57,12 @@ class PokemonGame:
                     x, y = event.pos
                     if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton1 < y < self.y_bouton1 + self.hauteur_bouton:
                         self.couleur_bouton1 = self.couleur_bouton_clic
+                        return "menu"
 
                     if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton2 < y < self.y_bouton2 + self.hauteur_bouton:
                         self.couleur_bouton2 = self.couleur_bouton_clic
+                        pygame.quit()
+                        sys.exit()
 
             self.fenetre.blit(self.image_fond, (0, 0))
 
