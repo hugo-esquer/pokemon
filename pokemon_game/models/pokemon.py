@@ -12,7 +12,7 @@ class pokemon(type):
         super().__init__(type, attaque, defense)
 
     def evol(self):
-        with open(pokemon.json) as liste:
+        with open("pokemon_game/pokemon.json") as liste:
             data = json.load(liste)
         evolution = data[self.evolution]
         self.nom = evolution["nom"]
@@ -27,7 +27,4 @@ class pokemon(type):
         self.lvl += 1
         self.pv += random.randint(1, 4)
         self.attaque += random.randint(1, 4)
-        if self.lvl == self.lvlEvolve:
-            self.evol()
-
     
