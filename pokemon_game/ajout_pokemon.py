@@ -73,7 +73,6 @@ class PokemonApp:
         self.dico={}
         self.police_texte = pygame.font.Font("pokemon_game/typographie/BOMBARD_.ttf", 30)
         self.echap = self.police_texte.render("echap: retour", True, (0, 0, 0))
-        pygame.display.set_caption("Ajouter un pokemon")
 
         self.type_buttons = [
             Button(50, 220, 140, 40, "pokemon_game/images/Type-eau.png", self.button1_action, button_type="Eau"),
@@ -218,6 +217,7 @@ class PokemonApp:
             button.update()
 
     def afficher (self):
+        pygame.display.set_caption("Ajouter un pokemon")
         clock = pygame.time.Clock()
         self.fenetre.blit(self.image_fond, (0, 0))
         self.fenetre.blit(self.echap, (600, 10))

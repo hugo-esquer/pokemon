@@ -5,7 +5,6 @@ class PokemonGame:
     def __init__(self,fenetre):
         pygame.init()
         self.fenetre = fenetre
-        pygame.display.set_caption("Pokemon")
 
         self.image_fond = pygame.image.load("pokemon_game\\images\\background.accueil.jpg")
         self.image_fond = pygame.transform.scale(self.image_fond, (800, 480))
@@ -59,6 +58,7 @@ class PokemonGame:
                     sys.exit()
 
     def afficher(self):
+            pygame.display.set_caption("Pokemon")
             self.fenetre.blit(self.image_fond, (0, 0))
 
             self.dessiner_bouton(self.x_bouton, self.y_bouton1, self.largeur_bouton, self.hauteur_bouton, "ACCUEIL", self.couleur_bouton1)
