@@ -27,7 +27,4 @@ class pokemon(type):
         self.lvl += 1
         self.pv += random.randint(1, 4)
         self.attaque += random.randint(1, 4)
-        if self.lvl == self.lvlEvolve:
-            self.evol()
-
     
