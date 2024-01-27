@@ -38,6 +38,19 @@
         "pv": 44,
         "type": "eau"
     },
+    "coucou": {
+        "attaque": 51,
+        "defense": 50,
+        "dos": "pokemon_game/images/Sprites/132-Back.png",
+        "evolution": null,
+        "face": "pokemon_game/images/Sprites/132-Front.png",
+        "initiative": 6,
+        "lvlEvolve": null,
+        "miniature": "pokemon_game/images/Sprites/132-Icon.png",
+        "nom": "Coucou",
+        "pv": 54,
+        "type": "normal"
+    },
     "dracaufeu": {
         "attaque": 47,
         "defense": 8,

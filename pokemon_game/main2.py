@@ -4,6 +4,7 @@ from pokedex import pokedex
 from game import game
 from combat import combat
 from accueil import PokemonGame
+from ajout_pokemon import PokemonApp
 
 pygame.init()
 # Paramètres de la fenêtre
@@ -15,6 +16,7 @@ accueil = PokemonGame(fenetre)
 menu = menu_ppl(fenetre)
 pokedex_menu = pokedex(fenetre)
 game_menu = game(fenetre)
+ajout = PokemonApp(fenetre)
 
 ecran_actuel = accueil  # Commencez à l'écran d'accueil
 
@@ -41,5 +43,7 @@ while en_cours:
         joueur = game_menu.obtenir_selection()
         ecrant_combat = combat(fenetre, joueur)
         ecran_actuel = ecrant_combat
+    if prochain_ecran == "ajout":
+        ecran_actuel = ajout
 
     pygame.display.flip()

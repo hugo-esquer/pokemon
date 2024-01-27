@@ -74,6 +74,7 @@ class menu_ppl:
 
                 if self.x_bouton < x < self.x_bouton + self.largeur_bouton and self.y_bouton3 < y < self.y_bouton3 + self.hauteur_bouton:
                     self.couleur_bouton3 = self.couleur_bouton_clic
+                    return "ajout"
 
     def afficher(self):
 

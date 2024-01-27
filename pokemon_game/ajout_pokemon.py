@@ -103,7 +103,7 @@ class PokemonApp:
         self.dico["evolution"]= None
         self.dico["face"]= "pokemon_game/images/Sprites/132-Front.png"
         self.dico["dos"]= "pokemon_game/images/Sprites/132-Back.png"
-        self.dico["miniature"]= None
+        self.dico["miniature"]= "pokemon_game/images/Sprites/132-Icon.png"
         
     def moyen(self):
         self.dico["nom"] = self.cle.capitalize()
@@ -116,7 +116,7 @@ class PokemonApp:
         self.dico["evolution"]= None
         self.dico["face"]= "pokemon_game/images/Sprites/132-Front.png"
         self.dico["dos"]= "pokemon_game/images/Sprites/132-Back.png"
-        self.dico["miniature"]= None
+        self.dico["miniature"]= "pokemon_game/images/Sprites/132-Icon.png"
 
     def fort(self):
         self.dico["nom"] = self.cle.capitalize()
@@ -129,7 +129,7 @@ class PokemonApp:
         self.dico["evolution"]= None
         self.dico["face"]= "pokemon_game/images/Sprites/132-Front.png"
         self.dico["dos"]= "pokemon_game/images/Sprites/132-Back.png"
-        self.dico["miniature"]= None
+        self.dico["miniature"]= "pokemon_game/images/Sprites/132-Icon.png"
 
     def button1_action(self):
         print(f"Action du Bouton 1 - Type : {self.type_buttons[0].type}")
@@ -197,56 +197,32 @@ class PokemonApp:
         with open("pokemon_game/pokemon.json", "w") as mon_fichier:
             json.dump(data, mon_fichier, sort_keys=True, indent=4)
 
+    def gestion_evenement(self, evenements):
 
+        for event in evenements:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return "menu"
 
-    def run(self):
+            for button in self.type_buttons + self.other_buttons + self.ajouter_buttons:
+                button.handle_event(event)
+
+            self.text_input.handle_event(event)
+
+        for button in self.type_buttons + self.other_buttons + self.ajouter_buttons:
+            button.update()
+
+    def afficher (self):
         clock = pygame.time.Clock()
+        self.fenetre.blit(self.image_fond, (0, 0))
 
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+        for button in self.type_buttons + self.other_buttons + self.ajouter_buttons:
+            button.draw(self.fenetre)
 
-                for button in self.type_buttons + self.other_buttons + self.ajouter_buttons:
-                    button.handle_event(event)
+        self.text_input.draw(self.fenetre)
 
-                self.text_input.handle_event(event)
-
-            for button in self.type_buttons + self.other_buttons + self.ajouter_buttons:
-                button.update()
-
-            self.fenetre.blit(self.image_fond, (0, 0))
-
-            for button in self.type_buttons + self.other_buttons + self.ajouter_buttons:
-                button.draw(self.fenetre)
-
-            self.text_input.draw(self.fenetre)
-
-            pygame.display.flip()
-            clock.tick(60)
-
-if __name__ == "__main__":
-    fenetre = pygame.display.set_mode((800,480))
-    app = PokemonApp(fenetre)
-    pygame.event.set_grab(False)
-    app.run()
-
-
-
-# une variable type 
-# une variable type selectionné tant que type selectionné = none tu peux cliquer 
-# type selectionné = none 
-# if type selectionne == none 
-# faire une focntion faible qui prend  qui créer un dictionnaire 
-
-# def faible (type, nom):
-
-#   with open("pokemon_game/pokedex.json") as mon_fichier:
-#             data = json.load(mon_fichier)
-#             data [hericendre = nom ]
-
-#     with open("pokemon_game/pokedex.json", "w") as mon_fichier:
-#     json.dump(data, mon_fichier, indent=4)
-
-#                 # sort_keys pour aller a la ligne 
+        pygame.display.flip()
+        clock.tick(60)
