@@ -71,6 +71,8 @@ class PokemonApp:
         self.force_selectionne = None
         self.cle = None
         self.dico={}
+        self.police_texte = pygame.font.Font("pokemon_game/typographie/BOMBARD_.ttf", 30)
+        self.echap = self.police_texte.render("echap: retour", True, (0, 0, 0))
         pygame.display.set_caption("Ajouter un pokemon")
 
         self.type_buttons = [
@@ -218,6 +220,7 @@ class PokemonApp:
     def afficher (self):
         clock = pygame.time.Clock()
         self.fenetre.blit(self.image_fond, (0, 0))
+        self.fenetre.blit(self.echap, (600, 10))
 
         for button in self.type_buttons + self.other_buttons + self.ajouter_buttons:
             button.draw(self.fenetre)

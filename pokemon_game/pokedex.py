@@ -25,6 +25,7 @@ class pokedex():
         self.sprite_inconnu = pygame.image.load("pokemon_game/images/Sprite-inconnu.png")
         self.sprite_inconnu = pygame.transform.scale(self.sprite_inconnu, (128, 128))
         self.police_texte = pygame.font.Font("pokemon_game/typographie/BOMBARD_.ttf", 30)
+        self.echap = self.police_texte.render("echap: retour", True, self.NOIR)
 
         # definition de la liste des pokemon
         self.liste_pokemon = []
@@ -54,6 +55,7 @@ class pokedex():
         pygame.display.set_caption("Pokédex")
         self.fenetre.blit(self.image_fond, (0,0))
         self.fenetre.blit(self.bouton_selection, (508, 60))
+        self.fenetre.blit(self.echap, (600, 10))
 
         # liste des pokemon a afficher dans le pokedex
         liste_pokedex =[]

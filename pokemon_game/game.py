@@ -27,6 +27,7 @@ class game():
         self.sprite_inconnu = pygame.image.load("pokemon_game/images/Sprite-inconnu.png")
         self.sprite_inconnu = pygame.transform.scale(self.sprite_inconnu, (128, 128))
         self.police_texte = pygame.font.Font("pokemon_game/typographie/BOMBARD_.ttf", 30)
+        self.echap = self.police_texte.render("echap: retour", True, self.NOIR)
 
         # definition de la liste des pokemon disponible
         self.liste_pokemon = []
@@ -100,3 +101,4 @@ class game():
         self.fenetre.blit(texte_atk, (160, 359))
         self.fenetre.blit(texte_vit, (388, 304))
         self.fenetre.blit(texte_def, (388, 359))
+        self.fenetre.blit(self.echap, (600, 10))
