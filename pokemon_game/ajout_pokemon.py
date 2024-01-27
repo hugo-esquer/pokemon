@@ -1,6 +1,7 @@
 import json
 import pygame
 import sys
+import random
 
 class Button:
 
@@ -37,6 +38,8 @@ class TextInput:
         self.font = pygame.font.SysFont("Bombardier", 32)
         self.active = False
 
+        #récupérer la valeur entrée et l'ajoute au fichier json
+
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             self.active = self.rect.collidepoint(event.pos)
@@ -48,19 +51,26 @@ class TextInput:
             else:
                 self.text += event.unicode
 
+    def get_text (self):
+        return self.text.lower()
+
     def draw(self, surface):
         text_surface = self.font.render(self.text, True, (255, 255, 255))
         surface.blit(text_surface, (self.rect.x + 5, self.rect.y + 5))
 
 class PokemonApp:
 
-    def __init__(self, largeur_fenetre, hauteur_fenetre, image_fond_path):
+    def __init__(self, fenetre):
         pygame.init()
-        self.largeur_fenetre = largeur_fenetre
-        self.hauteur_fenetre = hauteur_fenetre
-        self.image_fond = pygame.image.load(image_fond_path)
+        self.largeur_fenetre = 800
+        self.hauteur_fenetre = 480
+        self.image_fond = pygame.image.load("pokemon_game/images/background.ajout.png")
         self.image_fond = pygame.transform.scale(self.image_fond, (self.largeur_fenetre, self.hauteur_fenetre))
-        self.fenetre = pygame.display.set_mode((self.largeur_fenetre, self.hauteur_fenetre))
+        self.fenetre = fenetre
+        self.type_selectionne= None
+        self.force_selectionne = None
+        self.cle = None
+        self.dico={}
         pygame.display.set_caption("Ajouter un pokemon")
 
         self.type_buttons = [
@@ -82,29 +92,112 @@ class PokemonApp:
 
         self.text_input = TextInput(190, 125, 410, 40)
 
+    def faible(self):
+        self.dico["nom"] = self.cle.capitalize()
+        self.dico["type"]= self.type_selectionne
+        self.dico["pv"]= random.randint(40, 50)
+        self.dico["attaque"]= random.randint(20, 36)
+        self.dico["defense"]= random.randint(5, 28)
+        self.dico["initiative"]= random.randint(4,5)
+        self.dico["lvlEvolve"]= None
+        self.dico["evolution"]= None
+        self.dico["face"]= "pokemon_game/images/Sprites/132-Front.png"
+        self.dico["dos"]= "pokemon_game/images/Sprites/132-Back.png"
+        self.dico["miniature"]= None
+        
+    def moyen(self):
+        self.dico["nom"] = self.cle.capitalize()
+        self.dico["type"]= self.type_selectionne
+        self.dico["pv"]= random.randint(50, 60)
+        self.dico["attaque"]= random.randint(36, 52)
+        self.dico["defense"]= random.randint(28, 51)
+        self.dico["initiative"]= random.randint(5,6)
+        self.dico["lvlEvolve"]= None
+        self.dico["evolution"]= None
+        self.dico["face"]= "pokemon_game/images/Sprites/132-Front.png"
+        self.dico["dos"]= "pokemon_game/images/Sprites/132-Back.png"
+        self.dico["miniature"]= None
+
+    def fort(self):
+        self.dico["nom"] = self.cle.capitalize()
+        self.dico["type"]= self.type_selectionne
+        self.dico["pv"]= random.randint(60, 70)
+        self.dico["attaque"]= random.randint(52, 68)
+        self.dico["defense"]= random.randint(51, 75)
+        self.dico["initiative"]= random.randint(6, 7)
+        self.dico["lvlEvolve"]= None
+        self.dico["evolution"]= None
+        self.dico["face"]= "pokemon_game/images/Sprites/132-Front.png"
+        self.dico["dos"]= "pokemon_game/images/Sprites/132-Back.png"
+        self.dico["miniature"]= None
+
     def button1_action(self):
         print(f"Action du Bouton 1 - Type : {self.type_buttons[0].type}")
-
+        self.type_selectionne = "eau"
+        
     def button2_action(self):
         print(f"Action du Bouton 2 - Type : {self.type_buttons[1].type}")
+        self.type_selectionne = "feu"
 
     def button3_action(self):
         print(f"Action du Bouton 3 - Force : {self.other_buttons[0].force}")
+        self.force_selectionne = "fort"
 
     def button4_action(self):
         print(f"Action du Bouton 4 - Force : {self.other_buttons[1].force}")
+        self.force_selectionne = "faible"
 
     def button5_action(self):
         print(f"Action du Bouton 5 - Type : {self.type_buttons[2].type}")
+        self.type_selectionne = "normal"
 
     def button6_action(self):
         print(f"Action du Bouton 6 - Force : {self.other_buttons[2].force}")
+        self.force_selectionne = "moyen"
 
     def button7_action(self):
         print(f"Action du Bouton 7 - Type : {self.type_buttons[3].type}")
+        self.type_selectionne = "terre"
 
     def button8_action(self):
-        print("Action du bouton 8")
+        self.cle = self.text_input.get_text()
+        if self.type_selectionne == "plante":
+            if self.force_selectionne == "faible":
+                self.faible()
+            if self.force_selectionne == "moyen":
+                self.moyen()
+            if self.force_selectionne == "fort":
+                self.fort()
+        elif self.type_selectionne == "normal":
+            if self.force_selectionne == "faible":
+                self.faible()
+            if self.force_selectionne == "moyen":
+                self.moyen()
+            if self.force_selectionne == "fort":
+                self.fort()
+        elif self.type_selectionne == "feu":
+            if self.force_selectionne == "faible":
+                self.faible()
+            if self.force_selectionne == "moyen":
+                self.moyen()
+            if self.force_selectionne == "fort":
+                self.fort()
+        elif self.type_selectionne == "eau":
+            if self.force_selectionne == "faible":
+                self.faible()
+            if self.force_selectionne == "moyen":
+                self.moyen()
+            if self.force_selectionne == "fort":
+                self.fort()
+
+        with open("pokemon_game/pokemon.json") as mon_fichier:
+            data = json.load(mon_fichier)
+
+        data[f"{self.cle}"] = self.dico
+        with open("pokemon_game/pokemon.json", "w") as mon_fichier:
+            json.dump(data, mon_fichier, sort_keys=True, indent=4)
+
+
 
     def run(self):
         clock = pygame.time.Clock()
@@ -134,7 +227,8 @@ class PokemonApp:
             clock.tick(60)
 
 if __name__ == "__main__":
-    app = PokemonApp(800, 480, "pokemon_game/images/background.ajout.png")
+    fenetre = pygame.display.set_mode((800,480))
+    app = PokemonApp(fenetre)
     pygame.event.set_grab(False)
     app.run()
 
