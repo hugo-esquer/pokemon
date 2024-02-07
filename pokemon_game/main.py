@@ -14,7 +14,6 @@ fenetre = pygame.display.set_mode((largeur_fenetre, hauteur_fenetre))
 
 accueil = PokemonGame(fenetre)
 menu = menu_ppl(fenetre)
-pokedex_menu = pokedex(fenetre)
 ajout = PokemonApp(fenetre)
 
 ecran_actuel = accueil  # Commencez à l'écran d'accueil
@@ -35,6 +34,7 @@ while en_cours:
     if prochain_ecran == "menu":
         ecran_actuel = menu
     if prochain_ecran == "pokedex_menu":
+        pokedex_menu = pokedex(fenetre)
         ecran_actuel = pokedex_menu
     if prochain_ecran == "game_menu":
         game_menu = game(fenetre)
