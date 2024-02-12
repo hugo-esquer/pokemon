@@ -53,6 +53,7 @@ class game():
                         self.pokemon_selectionnee = (self.pokemon_selectionnee - 1) % len(self.liste_pokemon)
                     elif event.key == pygame.K_RETURN:
                         self.pokemon_joueur = self.liste_pokemon[self.pokemon_selectionnee]
+                        pygame.mixer.Sound("pokemon_game/audio/bruitages/game_start.mp3").play()
                         return "combat"
                     elif event.key == pygame.K_ESCAPE:
                         return "menu"
